@@ -1,0 +1,9 @@
+[
+	{
+		"title": "Viewfact selected rss",
+		"author": "chungkwong",
+		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/rss.json",
+		"frequency": 86400000,
+		"action": "[{\"step\":\"from-url\"},{\"step\":\"to-text\"},{\"step\":\"parse-json\",\"path\":\"$[*]\"},{\"step\":\"alter-field\",\"new\":{\"action\":\"[{\\\"step\\\":\\\"from-url\\\"},{\\\"step\\\":\\\"parse-xml\\\",\\\"path\\\":\\\"/rss/channel/item\\\",\\\"mapping\\\":{\\\"/link\\\":\\\"property_url_s\\\",\\\"/description\\\":\\\"content_t\\\",\\\"/title\\\":\\\"property_title_t\\\",\\\"/pubDate\\\":\\\"property_date_t\\\"}},{\\\"step\\\":\\\"to-solr\\\",\\\"clear\\\":true},{\\\"step\\\":\\\"meta\\\",\\\"mapping\\\":{\\\"id\\\":\\\"url\\\",\\\"parent_s\\\":\\\"parent\\\",\\\"property_title_t\\\":\\\"title\\\",\\\"property_author_t\\\":\\\"author\\\",\\\"property_date_dt\\\":\\\"last_updated\\\"}},{\\\"step\\\":\\\"to-solr\\\"}]\"}},{\"step\":\"to-datasets\"}]"
+	}
+]
