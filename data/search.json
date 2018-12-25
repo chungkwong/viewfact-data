@@ -618,10 +618,10 @@
 		"id": "https://webcat.hkpl.gov.hk/search/query?theme=WEB&term_1="
 	},
 	{
-		"property_title_t": "電子版香港法例",
+		"property_title_t": "香港法律資訊中心",
 		"property_description_t": "",
-		"property_catalog_t": "",
-		"id": "https://www.elegislation.gov.hk/results?SEARCH_OPTION=K&keyword.SEARCH_FIELD=E&keyword.SEARCH_KEYWORD="
+		"property_catalog_t": "判案書 Judgment 條例 附屬法例 國際公約 Ordinance Regulation Constitutional Instrument Treaty 實務指示 Practice Direction",
+		"id": "http://www.hklii.hk/cgi-bin/sinosrch.cgi?query="
 	},
 	{
 		"property_title_t": "立法會",

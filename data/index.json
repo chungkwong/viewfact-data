@@ -20,5 +20,13 @@
 		"frequency": 10368000000,
 		"columns": "property_id_s,property_title_t,property_alias_t,property_url_s",
 		"action": "[{\"step\":\"from-url\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"columns\":[\"property_id_s\",\"property_title_t\",\"property_alias_t\",\"property_url_s\"]},{\"step\":\"alter-field\",\"prefix\":{\"property_url_s\":\"https://www.elegislation.gov.hk\"}},{\"step\":\"to-solr\"},{\"step\":\"meta\",\"mapping\":{\"id\":\"url\",\"parent_s\":\"parent\",\"property_title_t\":\"title\",\"property_author_t\":\"author\"}},{\"step\":\"to-solr\"}]"
+	},
+	{
+		"title": "香港政府一站通",
+		"author": "香港政府",
+		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/info.csv",
+		"frequency": 10368000000,
+		"columns": "property_title_t,property_url_s",
+		"action": "[{\"step\":\"from-url\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"columns\":[\"property_title_t\",\"property_url_s\"]},{\"step\":\"alter-field\",\"prefix\":{\"property_url_s\":\"https://www.gov.hk\"}},{\"step\":\"to-solr\"},{\"step\":\"meta\",\"mapping\":{\"id\":\"url\",\"parent_s\":\"parent\",\"property_title_t\":\"title\",\"property_author_t\":\"author\"}},{\"step\":\"to-solr\"}]"
 	}
 ]
