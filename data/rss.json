@@ -1,3 +1,272 @@
 [
-
+	{
+		"title": "新聞速遞",
+		"author": "香港政府新聞網",
+		"frequency": 86400000,
+		"url": "http://www.news.gov.hk/tc/common/html/ticker.rss.xml"
+	},
+	{
+		"title": "邀請各界提交意見書",
+		"author": "立法會",
+		"frequency": 86400000,
+		"url": "https://www.legco.gov.hk/rss/cinvite_s.xml"
+	},
+	{
+		"title": "財務委員會",
+		"author": "立法會",
+		"frequency": 86400000,
+		"url": "https://www.legco.gov.hk/rss/cfc.xml"
+	},
+	{
+		"title": "事務委員會",
+		"author": "立法會",
+		"frequency": 86400000,
+		"url": "https://www.legco.gov.hk/rss/cpanels.xml"
+	},
+	{
+		"title": "職位空缺 | 香港房屋委員會及房屋署",
+		"author": "香港房屋委員會及房屋署",
+		"frequency": 86400000,
+		"url": "https://www.housingauthority.gov.hk/tc/rss/job-vacancies.xml"
+	},
+	{
+		"title": "商業單位招標及中標公告 | 香港房屋委員會及房屋署",
+		"author": "香港房屋委員會及房屋署",
+		"frequency": 86400000,
+		"url": "https://www.housingauthority.gov.hk/tc/rss/tender-notices-and-awards.xml"
+	},
+	{
+		"title": "房委會會議 | 香港房屋委員會及房屋署",
+		"author": "香港房屋委員會及房屋署",
+		"frequency": 86400000,
+		"url": "https://www.housingauthority.gov.hk/tc/rss/ha-meetings.xml"
+	},
+	{
+		"title": "互信 | 香港房屋委員會及房屋署",
+		"author": "香港房屋委員會及房屋署",
+		"frequency": 86400000,
+		"url": "https://www.housingauthority.gov.hk/tc/rss/housing-dimensions.xml"
+	},
+	{
+		"title": "新聞稿 | 香港房屋委員會及房屋署",
+		"author": "香港房屋委員會及房屋署",
+		"frequency": 86400000,
+		"url": "http://www.housingauthority.gov.hk/tc/rss/press-releases.xml"
+	},
+	{
+		"title": "機電工程署:競投意向書",
+		"author": "機電工程署",
+		"frequency": 86400000,
+		"url": "http://www.emsd.gov.hk/filemanager/tendernotice/tc/consultancy.xml"
+	},
+	{
+		"title": "機電工程署:招標公告",
+		"author": "機電工程署",
+		"frequency": 86400000,
+		"url": "http://www.emsd.gov.hk/filemanager/tendernotice/tc/tender_notices.xml"
+	},
+	{
+		"title": "最近更新的法例/文件",
+		"author": "律政司",
+		"frequency": 86400000,
+		"url": "https://www.elegislation.gov.hk/recently-updated!zh-Hant-HK.rss.xml"
+	},
+	{
+		"title": "路政署 - 最新消息",
+		"author": "路政署",
+		"frequency": 86400000,
+		"url": "https://www.hyd.gov.hk/tc/rss/whats_new.php"
+	},
+	{
+		"title": "金管局: 匯思",
+		"author": "香港金融管理局",
+		"frequency": 86400000,
+		"url": "https://www.hkma.gov.hk/chi/other-information/rss/rss_insight.xml"
+	},
+	{
+		"title": "金管局: 金融數據月報",
+		"author": "香港金融管理局",
+		"frequency": 86400000,
+		"url": "https://www.hkma.gov.hk/chi/other-information/rss/rss_monthly-statistical-bulletin.xml"
+	},
+	{
+		"title": "金管局: 新聞稿",
+		"author": "香港金融管理局",
+		"frequency": 86400000,
+		"url": "https://www.hkma.gov.hk/chi/other-information/rss/rss_press-release.xml"
+	},
+	{
+		"title": "金管局: 刊物與研究資料",
+		"author": "香港金融管理局",
+		"frequency": 86400000,
+		"url": "https://www.hkma.gov.hk/chi/other-information/rss/rss_publications-and-research.xml"
+	},
+	{
+		"title": "金管局: 指引及通告",
+		"author": "香港金融管理局",
+		"frequency": 86400000,
+		"url": "https://www.hkma.gov.hk/chi/other-information/rss/rss_guidelines-and-circulars.xml"
+	},
+	{
+		"title": "金管局: 演講辭",
+		"author": "香港金融管理局",
+		"frequency": 86400000,
+		"url": "https://www.hkma.gov.hk/chi/other-information/rss/rss_speeches.xml"
+	},
+	{
+		"title": "金管局: 新聞稿",
+		"author": "香港金融管理局",
+		"frequency": 86400000,
+		"url": "https://www.hkma.gov.hk/chi/other-information/rss/rss_press-release.xml"
+	},
+	{
+		"title": "運輸署: 交通通告",
+		"author": "運輸署",
+		"frequency": 3600000,
+		"url": "https://www.td.gov.hk/filemanager/rss/tc/traffic_notices.xml"
+	},
+	{
+		"title": "運輸署: 新聞公報",
+		"author": "運輸署",
+		"frequency": 86400000,
+		"url": "https://www.td.gov.hk/filemanager/rss/tc/press_release.xml"
+	},
+	{
+		"title": "運輸署: 最新消息",
+		"author": "運輸署",
+		"frequency": 86400000,
+		"url": "https://www.td.gov.hk/filemanager/rss/tc/what_new.xml"
+	},
+	{
+		"title": "渠務署 - 批出工程/顧問合約",
+		"author": "渠務署",
+		"frequency": 86400000,
+		"url": "https://www.dsd.gov.hk/Menu/TC/RSS/Contracts_Consultancies_Awarded.xml"
+	},
+	{
+		"title": "渠務署 - 最新招標公布",
+		"author": "渠務署",
+		"frequency": 86400000,
+		"url": "https://www.dsd.gov.hk/Menu/TC/RSS/Current_Tenders.xml"
+	},
+	{
+		"title": "渠務署 - 最新動向",
+		"author": "渠務署",
+		"frequency": 86400000,
+		"url": "https://www.dsd.gov.hk/Menu/TC/RSS/Whats_New.xml"
+	},
+	{
+		"title": "土木工程拓展署招標公告",
+		"author": "土木工程拓展署",
+		"frequency": 86400000,
+		"url": "https://www.cedd.gov.hk/tc/rss/tender_notices_rss.xml"
+	},
+	{
+		"title": "土木工程拓展署近期事項",
+		"author": "土木工程拓展署",
+		"frequency": 86400000,
+		"url": "https://www.cedd.gov.hk/tc/rss/recent_topics_rss.xml"
+	},
+	{
+		"title": "土木工程拓展署最新消息",
+		"author": "土木工程拓展署",
+		"frequency": 86400000,
+		"url": "https://www.cedd.gov.hk/tc/rss/cedd_news_rss.xml"
+	},
+	{
+		"title": "差餉物業估價署刊物及統計資料",
+		"author": "差餉物業估價署",
+		"frequency": 86400000,
+		"url": "https://www.rvd.gov.hk/xml/rss_publications_statistics_tc.xml"
+	},
+	{
+		"title": "差餉物業估價署最新消息",
+		"author": "差餉物業估價署",
+		"frequency": 86400000,
+		"url": "https://www.rvd.gov.hk/xml/rss_news_tc.xml"
+	},
+	{
+		"title": "稅務局最新消息",
+		"author": "稅務局",
+		"frequency": 86400000,
+		"url": "https://www.ird.gov.hk/chi/new/index.data.xml"
+	},
+	{
+		"title": "「方便營商措施網站」最新消息",
+		"author": "香港政府一站通",
+		"frequency": 86400000,
+		"url": "https://www.gov.hk/tc/theme/bf/feeds/bf-news.data.xml"
+	},
+	{
+		"title": "營商諮詢最新消息 - 各項可能影響商界的擬議新規例及行政措施的最新諮詢資料",
+		"author": "香港政府一站通",
+		"frequency": 86400000,
+		"url": "https://www.gov.hk/tc/theme/bf/feeds/business-consultation.data.xml"
+	},
+	{
+		"title": "香港貿易發展局新聞稿",
+		"author": "香港貿易發展局",
+		"frequency": 86400000,
+		"url": "http://www.hktdc.com/info/rss/tc/rss.xml?w_url=tdcpress_tc"
+	},
+	{
+		"title": "香港商船公告及香港商船資訊",
+		"author": "海事處",
+		"frequency": 86400000,
+		"url": "http://www.mardep.gov.hk/hk/news/rss1c.xml"
+	},
+	{
+		"title": "教育局的最新消息",
+		"author": "教育局",
+		"frequency": 86400000,
+		"url": "https://www.edb.gov.hk/tc/whats_new_rss.xml"
+	},
+	{
+		"title": "環保署舉辦的公眾活動",
+		"author": "環保署",
+		"frequency": 86400000,
+		"url": "https://www.epd.gov.hk/epd/tc_chi/rss_feeds/events_acts.xml"
+	},
+	{
+		"title": "環保署的重點措施及最新消息",
+		"author": "環保署",
+		"frequency": 86400000,
+		"url": "http://www.epd.gov.hk/epd/tc_chi/rss_feeds/highlights.xml"
+	},
+	{
+		"title": "衞生防護中心新聞稿及專題",
+		"author": "衞生署衞生防護中心",
+		"frequency": 86400000,
+		"url": "https://www.chp.gov.hk/rss/pressreleases_zh_tw_RSS.xml"
+	},
+	{
+		"title": "衞生防護中心活動",
+		"author": "衞生署衞生防護中心",
+		"frequency": 86400000,
+		"url": "https://www.chp.gov.hk/rss/tne_event_zh_tw_RSS.xml"
+	},
+	{
+		"title": "傳染病直擊、非傳染病直擊及 CHP 通訊",
+		"author": "衞生署衞生防護中心",
+		"frequency": 86400000,
+		"url": "https://www.chp.gov.hk/rss/publication_zh_tw_RSS.xml"
+	},
+	{
+		"title": "通訊事務管理局辦公室的最新消息，包括諮詢文件、指引、數據及統計資料、公眾教育活動等",
+		"author": "通訊事務管理局",
+		"frequency": 86400000,
+		"url": "https://www.ofca.gov.hk/filemanager/ofca/tc/rss/index.xml"
+	},
+	{
+		"title": "香港郵政發放的新聞公報，內容包括服務詳情、新郵票發行、海外集郵品、新郵品等",
+		"author": "香港郵政",
+		"frequency": 86400000,
+		"url": "https://www.hongkongpost.hk/tc/about_us/whats_new/press_release/press_release.xml"
+	},
+	{
+		"title": "香港郵政通告",
+		"author": "香港郵政",
+		"frequency": 86400000,
+		"url": "https://www.hongkongpost.hk/tc/about_us/whats_new/notices/notices.xml"
+	}
 ]

@@ -1,0 +1,632 @@
+[
+	{
+		"property_title_t": "Google",
+		"property_description_t": "",
+		"property_catalog_t": "谷歌",
+		"id": "https://www.google.com/search?q="
+	},
+	{
+		"property_title_t": "Bing",
+		"property_description_t": "",
+		"property_catalog_t": "Microsoft 微软必应",
+		"id": "https://www.bing.com/search?q="
+	},
+	{
+		"property_title_t": "百度",
+		"property_description_t": "百度一下，你就知道",
+		"property_catalog_t": "Baidu",
+		"id": "https://www.baidu.com/s?ie=utf-8&wd="
+	},
+	{
+		"property_title_t": "Yandex",
+		"property_description_t": "",
+		"property_catalog_t": "俄罗斯 Russia Russian Ukraine Belarus Kazakhstan Uzbekistan Turkey",
+		"id": "https://yandex.com/search/?text="
+	},
+	{
+		"property_title_t": "Naver",
+		"property_description_t": "",
+		"property_catalog_t": "南韩 朝鲜 Korea Korean",
+		"id": "https://search.naver.com/search.naver?query="
+	},
+	{
+		"property_title_t": "Yahoo",
+		"property_description_t": "",
+		"property_catalog_t": "雅虎 奇摩",
+		"id": "https://search.yahoo.com/search?p="
+	},
+	{
+		"property_title_t": "dogpile",
+		"property_description_t": "",
+		"property_catalog_t": "InfoSpace",
+		"id": "https://results.dogpile.com/search/web?q="
+	},
+	{
+		"property_title_t": "DuckDuckGo",
+		"property_description_t": "不會窺探你的搜尋引擎",
+		"property_catalog_t": "Duck Go",
+		"id": "https://duckduckgo.com/?q="
+	},
+	{
+		"property_title_t": "360",
+		"property_description_t": "360搜索，SO靠谱",
+		"property_catalog_t": "奇虎",
+		"id": "https://www.so.com/s?ie=utf-8&q="
+	},
+	{
+		"property_title_t": "搜狗",
+		"property_description_t": "上网从搜狗开始",
+		"property_catalog_t": "",
+		"id": "https://www.sogou.com/web?query="
+	},
+	{
+		"property_title_t": "Gigablast",
+		"property_description_t": "An Alternative Web Search Engine",
+		"property_catalog_t": "",
+		"id": "https://www.gigablast.com/search?c=main&qlangcountry=xx-zz&q="
+	},
+	{
+		"property_title_t": "GeoNames",
+		"property_description_t": "The GeoNames geographical database covers all countries and contains over eleven million placenames that are available for download free of charge",
+		"property_catalog_t": "Geo names name",
+		"id": "http://www.geonames.org/search.html?q="
+	},
+	{
+		"property_title_t": "OpenStreetMap",
+		"property_description_t": "一个由地图制作爱好者组成的社区",
+		"property_catalog_t": "Open Street Map 地图 road city 国州省市镇县街路楼",
+		"id": "https://www.openstreetmap.org/search?query="
+	},
+	{
+		"property_title_t": "百度地图",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://map.baidu.com/?newmap=1&ie=utf-8&s=s%26wd%3D"
+	},
+	{
+		"property_title_t": "高德地图",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.amap.com/search?query="
+	},
+	{
+		"property_title_t": "亚马逊中国",
+		"property_description_t": "一站放心购全球",
+		"property_catalog_t": "Amazon",
+		"id": "https://amazon.cn/gp/search?ie=UTF8&tag=chungkwong-23&linkCode=ur2&linkId=eeacb1e195b6e64db2d377a02b59dc88&camp=536&creative=3200&index=aps&keywords="
+	},
+	{
+		"property_title_t": "淘宝网",
+		"property_description_t": "淘！我喜欢",
+		"property_catalog_t": "taobao",
+		"id": "https://s.taobao.com/search?ie=utf8&q="
+	},
+	{
+		"property_title_t": "京东",
+		"property_description_t": "正品低价、品质保障、配送及时、轻松购物！",
+		"property_catalog_t": "JD",
+		"id": "https://search.jd.com/Search?enc=utf-8&keyword="
+	},
+	{
+		"property_title_t": "香港電視 HKTVmall 網上購物",
+		"property_description_t": "",
+		"property_catalog_t": "HKTV",
+		"id": "https://www.hktvmall.com/hktv/zh/search_a?keyword="
+	},
+	{
+		"property_title_t": "Wikipedia",
+		"property_description_t": "The free encyclopedia",
+		"property_catalog_t": "",
+		"id": "https://en.wikipedia.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "维基百科",
+		"property_description_t": "自由的百科全书",
+		"property_catalog_t": "",
+		"id": "https://zh.wikipedia.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wiktionary",
+		"property_description_t": "The free dictionary",
+		"property_catalog_t": "",
+		"id": "https://en.wiktionary.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "維基詞典",
+		"property_description_t": "自由的多语言词典",
+		"property_catalog_t": "",
+		"id": "https://zh.wiktionary.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wikiquote",
+		"property_description_t": "Collection of quotations",
+		"property_catalog_t": "",
+		"id": "https://en.wikiquote.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "维基语录",
+		"property_description_t": "自由的名人名言录",
+		"property_catalog_t": "",
+		"id": "https://zh.wikiquote.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wikibooks",
+		"property_description_t": "The open-content textbooks collection",
+		"property_catalog_t": "",
+		"id": "https://en.wikibooks.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "维基教科书",
+		"property_description_t": "人人可编辑的自由教学读本",
+		"property_catalog_t": "",
+		"id": "https://zh.wikibooks.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wikisource",
+		"property_description_t": "The free library",
+		"property_catalog_t": "",
+		"id": "https://en.wikisource.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "維基文庫",
+		"property_description_t": "自由的圖書館",
+		"property_catalog_t": "",
+		"id": "https://zh.wikisource.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wikinews",
+		"property_description_t": "Wikinews is written by people like you",
+		"property_catalog_t": "",
+		"id": "https://en.wikinews.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "維基新闻",
+		"property_description_t": "新聞投稿",
+		"property_catalog_t": "",
+		"id": "https://zh.wikinews.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wikiversity",
+		"property_description_t": "The open learning communities",
+		"property_catalog_t": "",
+		"id": "https://en.wikiversity.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "维基学院",
+		"property_description_t": "自由研习社群",
+		"property_catalog_t": "",
+		"id": "https://zh.wikiversity.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wikivoyage",
+		"property_description_t": "The free library",
+		"property_catalog_t": "",
+		"id": "https://en.wikivoyage.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "维基导游",
+		"property_description_t": "The FREE worldwide travel guide ",
+		"property_catalog_t": "",
+		"id": "https://zh.wikivoyage.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wikispecies",
+		"property_description_t": "The free species directory",
+		"property_catalog_t": "维基物种",
+		"id": "https://species.wikimedia.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wikidata",
+		"property_description_t": "The free knowledge base",
+		"property_catalog_t": "维基数据 data",
+		"id": "https://www.wikidata.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "Wikimedia Commons",
+		"property_description_t": "The a collection of freely usable media files",
+		"property_catalog_t": "维基媒体 图片 声音 影片 视频 Images Photo picture Sounds Videos",
+		"id": "https://commons.wikimedia.org/w/index.php?search="
+	},
+	{
+		"property_title_t": "GitHub",
+		"property_description_t": "GitHub is how people build software",
+		"property_catalog_t": "",
+		"id": "https://github.com/search?q="
+	},
+	{
+		"property_title_t": "SourceForge",
+		"property_description_t": "The Complete Open-Source and Business Software Platform",
+		"property_catalog_t": "Source Forge",
+		"id": "https://sourceforge.net/directory/os:linux/?q="
+	},
+	{
+		"property_title_t": "ORCID",
+		"property_description_t": "Connecting Research and Researchers",
+		"property_catalog_t": "",
+		"id": "https://orcid.org/orcid-search/quick-search/?searchQuery="
+	},
+	{
+		"property_title_t": "Quora",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.quora.com/search?q="
+	},
+	{
+		"property_title_t": "Flickr",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.flickr.com/search/?text="
+	},
+	{
+		"property_title_t": "Netflix",
+		"property_description_t": "Watch TV shows & movies anytime, anywhere.",
+		"property_catalog_t": "",
+		"id": "https://www.netflix.com/search?q="
+	},
+	{
+		"property_title_t": "YouTube",
+		"property_description_t": "",
+		"property_catalog_t": "video",
+		"id": "https://www.youtube.com/results?&search_query="
+	},
+	{
+		"property_title_t": "YouTube",
+		"property_description_t": "",
+		"property_catalog_t": "video",
+		"id": "https://www.youtube.com/results?&search_query="
+	},
+	{
+		"property_title_t": "WikiPathways",
+		"property_description_t": "A database of biological pathways",
+		"property_catalog_t": "",
+		"id": "http://wikipathways.org//index.php?title=Special%3ASearchPathways&doSearch=1&sa=Search&query="
+	},
+	{
+		"property_title_t": "World Digital Library Home",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.wdl.org/en/search/?q="
+	},
+	{
+		"property_title_t": "世界数字图书馆",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.wdl.org/zh/search/?q="
+	},
+	{
+		"property_title_t": "Google scholar",
+		"property_description_t": "",
+		"property_catalog_t": "谷歌学术",
+		"id": "https://scholar.google.com/scholar?q="
+	},
+	{
+		"property_title_t": "知乎",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.zhihu.com/search?q="
+	},
+	{
+		"property_title_t": "豆瓣",
+		"property_description_t": "",
+		"property_catalog_t": "读书 电影 音乐 同城 小组 阅读 FM 时间 摄影",
+		"id": "https://www.douban.com/search?q="
+	},
+	{
+		"property_title_t": "优酷网",
+		"property_description_t": "",
+		"property_catalog_t": "视频",
+		"id": "https://so.youku.com/search_video/q_"
+	},
+	{
+		"property_title_t": "优酷网",
+		"property_description_t": "",
+		"property_catalog_t": "视频",
+		"id": "https://so.youku.com/search_video/q_"
+	},
+	{
+		"property_title_t": "VIAF",
+		"property_description_t": "Virtual International Authority File",
+		"property_catalog_t": "name location work expression",
+		"id": "https://so.youku.com/search_video/q_"
+	},
+	{
+		"property_title_t": "CC search",
+		"property_description_t": "Creative Commons",
+		"property_catalog_t": "图片 Image",
+		"id": "https://ccsearch.creativecommons.org/search?q="
+	},
+	{
+		"property_title_t": "Crossref Metadata Search",
+		"property_description_t": "",
+		"property_catalog_t": "journal article book standard dataset",
+		"id": "https://search.crossref.org/?q="
+	},
+	{
+		"property_title_t": "Stack Overflow",
+		"property_description_t": "Creative Commons",
+		"property_catalog_t": "developer",
+		"id": "https://stackoverflow.com/search?q="
+	},
+	{
+		"property_title_t": "Digital Object Identifier System",
+		"property_description_t": "",
+		"property_catalog_t": "DOI",
+		"id": "https://doi.org/"
+	},
+	{
+		"property_title_t": "Open library",
+		"property_description_t": "",
+		"property_catalog_t": "book",
+		"id": "https://openlibrary.org/search?q="
+	},
+	{
+		"property_title_t": "IMDb",
+		"property_description_t": "",
+		"property_catalog_t": "actor writer director movie TV video game",
+		"id": "https://www.imdb.com/find?s=all&q="
+	},
+	{
+		"property_title_t": "Twitter",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://twitter.com/search?q="
+	},
+	{
+		"property_title_t": "Facebook",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.facebook.com/search/top/?q="
+	},
+	{
+		"property_title_t": "Web archive",
+		"property_description_t": "",
+		"property_catalog_t": "snapshot",
+		"id": "https://web.archive.org/web/*/"
+	},
+	{
+		"property_title_t": "Openclipart",
+		"property_description_t": "",
+		"property_catalog_t": "open clipart logo icon",
+		"id": "https://openclipart.org/search/?query="
+	},
+	{
+		"property_title_t": "Reddit",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.reddit.com/search?q="
+	},
+	{
+		"property_title_t": "Spotify",
+		"property_description_t": "",
+		"property_catalog_t": "Music",
+		"id": "https://open.spotify.com/search/"
+	},
+	{
+		"property_title_t": "arXiv",
+		"property_description_t": "e-Print archive",
+		"property_catalog_t": "Cornell University Library Physics, Mathematics, Computer Science, Quantitative Biology, Quantitative Finance, Statistics, Electrical Engineering and Systems Science, and Economics",
+		"id": "https://arxiv.org/search/?searchtype=all&query="
+	},
+	{
+		"property_title_t": "Forvo: the pronunciation dictionary",
+		"property_description_t": "All the words in the world pronounced by native speakers",
+		"property_catalog_t": "",
+		"id": "https://forvo.com/search/"
+	},
+	{
+		"property_title_t": "Arch Linux - Package Search",
+		"property_description_t": "",
+		"property_catalog_t": "pkg x86_64",
+		"id": "https://www.archlinux.org/packages/?q="
+	},
+	{
+		"property_title_t": "Rotten Tomatoes",
+		"property_description_t": "Movies | TV Shows | Movie Trailers | Reviews",
+		"property_catalog_t": "",
+		"id": "https://www.rottentomatoes.com/search/?search="
+	},
+	{
+		"property_title_t": "Google Play",
+		"property_description_t": "",
+		"property_catalog_t": "Android apk app apps",
+		"id": "https://play.google.com/store/search?q="
+	},
+	{
+		"property_title_t": "F-Droid",
+		"property_description_t": "Free and Open Source Android App Repository",
+		"property_catalog_t": "apk apps",
+		"id": "https://staging.f-droid.org/search?q="
+	},
+	{
+		"property_title_t": "JSTOR",
+		"property_description_t": "Use digital technologies to preserve the scholarly record",
+		"property_catalog_t": "",
+		"id": "https://www.jstor.org/action/doBasicSearch?Query="
+	},
+	{
+		"property_title_t": "Europeana Collections",
+		"property_description_t": "",
+		"property_catalog_t": "artwork, artefact, book, film and music from European museum, gallery, library and archive",
+		"id": "https://www.rottentomatoes.com/search/?search="
+	},
+	{
+		"property_title_t": "Encyclopedia Britannica",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.britannica.com/search?query="
+	},
+	{
+		"property_title_t": "起点中文网",
+		"property_description_t": "",
+		"property_catalog_t": "小说",
+		"id": "https://www.qidian.com/search?kw="
+	},
+	{
+		"property_title_t": "嗶哩嗶哩",
+		"property_description_t": "",
+		"property_catalog_t": "B站 视频 bilibili",
+		"id": "https://search.bilibili.com/all?keyword="
+	},
+	{
+		"property_title_t": "央视网",
+		"property_description_t": "",
+		"property_catalog_t": "视频",
+		"id": "https://search.cctv.com/search.php?type=web&qtext=$1"
+	},
+	{
+		"property_title_t": "WorldCat",
+		"property_description_t": "世界上最庞大的图书馆目录",
+		"property_catalog_t": "book catalog",
+		"id": "https://www.worldcat.org/search?qt=owc_search&q="
+	},
+	{
+		"property_title_t": "ImageNet",
+		"property_description_t": "Image database organized according to the WordNet hierarchy",
+		"property_catalog_t": "图片 Image net",
+		"id": "http://image-net.org/search?q="
+	},
+	{
+		"property_title_t": "虾米音乐",
+		"property_description_t": "",
+		"property_catalog_t": "歌手 专辑 MV",
+		"id": "http://www.xiami.com/search?key="
+	},
+	{
+		"property_title_t": "百度知道",
+		"property_description_t": "",
+		"property_catalog_t": "问答",
+		"id": "https://zhidao.baidu.com/search?ie=utf-8&word="
+	},
+	{
+		"property_title_t": "百度学术",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "http://xueshu.baidu.com/s?ie=utf-8&wd="
+	},
+	{
+		"property_title_t": "百度文库",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://wenku.baidu.com/search?ie=utf-8&word="
+	},
+	{
+		"property_title_t": "百度贴吧",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "http://tieba.baidu.com/f/search/res?ie=utf-8&qw="
+	},
+	{
+		"property_title_t": "天涯",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://search.tianya.cn/bbs?q="
+	},
+	{
+		"property_title_t": "新浪微博",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://s.weibo.com/weibo/"
+	},
+	{
+		"property_title_t": "IEEE Xplore Digital Library",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "http://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText="
+	},
+	{
+		"property_title_t": "百度百科",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://baike.baidu.com/search?enc=utf8&word="
+	},
+	{
+		"property_title_t": "中国大百科全书",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "http://h.bkzx.cn/search?query="
+	},
+	{
+		"property_title_t": "BabelNet",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "http://live.babelnet.org/synset?lang=ZH&word="
+	},
+	{
+		"property_title_t": "中國哲學書電子化計劃",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://ctext.org/searchbooks.pl?if=gb&searchu="
+	},
+	{
+		"property_title_t": "Debian 软件包",
+		"property_description_t": "",
+		"property_catalog_t": "package apt deb stable testing unstable sid  jessie stretch backports buster experimental",
+		"id": "https://packages.debian.org/search?searchon=all&suite=all&section=allkeywords="
+	},
+	{
+		"property_title_t": "MvnRepository",
+		"property_description_t": "Maven Repository: Search/Browse/Explore",
+		"property_catalog_t": "mvn jar java artifact library release",
+		"id": "https://mvnrepository.com/search?q="
+	},
+	{
+		"property_title_t": "npm",
+		"property_description_t": "package manager for JavaScript",
+		"property_catalog_t": "js",
+		"id": "https://www.npmjs.com/search?q="
+	},
+	{
+		"property_title_t": "CTAN",
+		"property_description_t": "The Comprehensive TeX Archive Network",
+		"property_catalog_t": "latex macro",
+		"id": "https://www.ctan.org/search/?phrase="
+	},
+	{
+		"property_title_t": "CPAN",
+		"property_description_t": "The Comprehensive Perl Archive Network",
+		"property_catalog_t": "module",
+		"id": "https://metacpan.org/search?q="
+	},
+	{
+		"property_title_t": "RubyGems",
+		"property_description_t": "",
+		"property_catalog_t": "ruby gems",
+		"id": "https://rubygems.org/search?utf8=%E2%9C%93&query="
+	},
+	{
+		"property_title_t": "LuaRocks",
+		"property_description_t": "The Lua package manager",
+		"property_catalog_t": "",
+		"id": "https://luarocks.org/search?q="
+	},
+	{
+		"property_title_t": "PyPI",
+		"property_description_t": "The Python Package Index",
+		"property_catalog_t": "pip",
+		"id": "https://pypi.org/search/?q="
+	},
+	{
+		"property_title_t": "Packagist",
+		"property_description_t": "The PHP Package Repository",
+		"property_catalog_t": "Composer",
+		"id": "https://packagist.org/?query="
+	},
+	{
+		"property_title_t": "香港公共圖書館館藏目錄",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://webcat.hkpl.gov.hk/search/query?theme=WEB&term_1="
+	},
+	{
+		"property_title_t": "電子版香港法例",
+		"property_description_t": "",
+		"property_catalog_t": "",
+		"id": "https://www.elegislation.gov.hk/results?SEARCH_OPTION=K&keyword.SEARCH_FIELD=E&keyword.SEARCH_KEYWORD="
+	},
+	{
+		"property_title_t": "立法會",
+		"property_description_t": "",
+		"property_catalog_t": "會議議程 會議記要 文件 程序 報告 委员会",
+		"id": "https://search.legco.gov.hk/LegCoWeb/Search.aspx?lang=tc&searchtype=simple&keyword="
+	}
+]

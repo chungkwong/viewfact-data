@@ -4,6 +4,21 @@
 		"author": "chungkwong",
 		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/rss.json",
 		"frequency": 86400000,
-		"action": "[{\"step\":\"from-url\"},{\"step\":\"to-text\"},{\"step\":\"parse-json\",\"path\":\"$[*]\"},{\"step\":\"alter-field\",\"new\":{\"action\":\"[{\\\"step\\\":\\\"from-url\\\"},{\\\"step\\\":\\\"parse-xml\\\",\\\"path\\\":\\\"/rss/channel/item\\\",\\\"mapping\\\":{\\\"/link\\\":\\\"property_url_s\\\",\\\"/description\\\":\\\"content_t\\\",\\\"/title\\\":\\\"property_title_t\\\",\\\"/pubDate\\\":\\\"property_date_t\\\"}},{\\\"step\\\":\\\"to-solr\\\",\\\"clear\\\":true},{\\\"step\\\":\\\"meta\\\",\\\"mapping\\\":{\\\"id\\\":\\\"url\\\",\\\"parent_s\\\":\\\"parent\\\",\\\"property_title_t\\\":\\\"title\\\",\\\"property_author_t\\\":\\\"author\\\",\\\"property_date_dt\\\":\\\"last_updated\\\"}},{\\\"step\\\":\\\"to-solr\\\"}]\"}},{\"step\":\"to-datasets\"}]"
+		"action": "[{\"step\":\"from-url\"},{\"step\":\"to-text\"},{\"step\":\"parse-json\",\"path\":\"$[*]\"},{\"step\":\"alter-field\",\"new\":{\"columns\":\"property_title_t,property_date_t,property_url_s\",\"action\":\"[{\\\"step\\\":\\\"from-url\\\"},{\\\"step\\\":\\\"parse-xml\\\",\\\"path\\\":\\\"/rss/channel/item\\\",\\\"mapping\\\":{\\\"/link\\\":\\\"property_url_s\\\",\\\"/description\\\":\\\"content_t\\\",\\\"/title\\\":\\\"property_title_t\\\",\\\"/pubDate\\\":\\\"property_date_t\\\"}},{\\\"step\\\":\\\"to-solr\\\",\\\"clear\\\":true},{\\\"step\\\":\\\"meta\\\",\\\"mapping\\\":{\\\"id\\\":\\\"url\\\",\\\"parent_s\\\":\\\"parent\\\",\\\"property_title_t\\\":\\\"title\\\",\\\"property_author_t\\\":\\\"author\\\",\\\"property_date_dt\\\":\\\"last_updated\\\"}},{\\\"step\\\":\\\"to-solr\\\"}]\"}},{\"step\":\"to-datasets\"}]"
+	},
+	{
+		"title": "Viewfact selected search engine",
+		"author": "chungkwong",
+		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/search.json",
+		"frequency": 86400000,
+		"action": "[{\"step\":\"from-url\"},{\"step\":\"to-text\"},{\"step\":\"parse-json\",\"path\":\"$[*]\"},{\"step\":\"alter-field\",\"new\":{\"parent_s\":\"engine\"}},{\"step\":\"to-solr\"}]"
+	},
+	{
+		"title": "電子版香港法例",
+		"author": "律政司",
+		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/law.csv",
+		"frequency": 10368000000,
+		"columns": "property_id_s,property_title_t,property_alias_t,property_url_s",
+		"action": "[{\"step\":\"from-url\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"columns\":[\"property_id_s\",\"property_title_t\",\"property_alias_t\",\"property_url_s\"]},{\"step\":\"alter-field\",\"prefix\":{\"property_url_s\":\"https://www.elegislation.gov.hk\"}},{\"step\":\"to-solr\"},{\"step\":\"meta\",\"mapping\":{\"id\":\"url\",\"parent_s\":\"parent\",\"property_title_t\":\"title\",\"property_author_t\":\"author\"}},{\"step\":\"to-solr\"}]"
 	}
 ]
