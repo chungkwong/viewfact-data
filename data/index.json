@@ -42,7 +42,7 @@
 		"author": "Unicode, Inc",
 		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/unihan.csv.gz",
 		"frequency": -1,
-		"columns": "property_id_s,property_title_t,property_type_t,property_description_t",
+		"columns": "property_id_s,property_title_t,property_remark_t",
 		"action": "[{\"step\":\"from-url\"},{\"step\":\"gunzip\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"columns\":[\"property_id_s\",\"property_title_t\",\"property_remark_t\"]},{\"step\":\"to-solr\"},{\"step\":\"meta\",\"mapping\":{\"parent_s\":\"parent\",\"property_title_t\":\"title\",\"property_author_t\":\"author\"}},{\"step\":\"alter-field\",\"new\":{\"id\":\"http://www.unicode.org/reports/tr38/\"}},{\"step\":\"to-solr\"}]"
 	}
 ]
