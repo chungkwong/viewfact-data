@@ -50,6 +50,6 @@
 		"author": "Wikimedia Foundation",
 		"url": "site",
 		"frequency": -1,
-		"action": "[{\"step\":\"from-url\",\"url\":\"file:///data/src/website.csv.gz\"},{\"step\":\"gunzip\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"separator\":\"\t\",\"quotation_mark\":\"\\u001F\",\"columns\":[\"property_id_s\",\"property_title_en_t\",\"property_title_t\",\"property_alias_en_t\",\"property_alias_t\",\"property_description_en_t\",\"property_description_t\",\"property_url_s\"]},{\"step\":\"to-solr\"}]"
+		"action": "[{\"step\":\"from-url\",\"url\":\"file:///data/src/website.csv.gz\"},{\"step\":\"gunzip\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"separator\":\"\\t\",\"quotation_mark\":\"\\u001F\",\"columns\":[\"property_id_s\",\"property_title_en_t\",\"property_title_t\",\"property_alias_en_t\",\"property_alias_t\",\"property_description_en_t\",\"property_description_t\",\"property_url_s\"]},{\"step\":\"to-solr\"}]"
 	}
 ]
