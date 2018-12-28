@@ -32,17 +32,24 @@
 	{
 		"title": "WordNet",
 		"author": "Princeton University",
-		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/wordnet_en.csv.gz",
+		"url": "https://wordnet.princeton.edu/",
 		"frequency": -1,
 		"columns": "property_id_s,property_title_t,property_type_t,property_description_t",
-		"action": "[{\"step\":\"from-url\"},{\"step\":\"gunzip\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"columns\":[\"property_id_s\",\"property_title_t\",\"property_type_t\",\"property_description_t\",\"property_remark_t\"]},{\"step\":\"to-solr\"},{\"step\":\"meta\",\"mapping\":{\"parent_s\":\"parent\",\"property_title_t\":\"title\",\"property_author_t\":\"author\"}},{\"step\":\"alter-field\",\"new\":{\"id\":\"https://wordnet.princeton.edu/\"}},{\"step\":\"to-solr\"}]"
+		"action": "[{\"step\":\"from-url\",\"url\":\"https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/wordnet_en.csv.gz\"},{\"step\":\"gunzip\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"columns\":[\"property_id_s\",\"property_title_t\",\"property_type_t\",\"property_description_t\",\"property_remark_t\"]},{\"step\":\"to-solr\"},{\"step\":\"meta\",\"mapping\":{\"parent_s\":\"parent\",\"property_title_t\":\"title\",\"property_author_t\":\"author\"}},{\"step\":\"to-solr\"}]"
 	},
 	{
 		"title": "Unicode Han Database (Unihan)",
 		"author": "Unicode, Inc",
-		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/unihan.csv.gz",
+		"url": "http://www.unicode.org/reports/tr38/",
 		"frequency": -1,
 		"columns": "property_id_s,property_title_t,property_remark_t",
-		"action": "[{\"step\":\"from-url\"},{\"step\":\"gunzip\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"columns\":[\"property_id_s\",\"property_title_t\",\"property_remark_t\"]},{\"step\":\"to-solr\"},{\"step\":\"meta\",\"mapping\":{\"parent_s\":\"parent\",\"property_title_t\":\"title\",\"property_author_t\":\"author\"}},{\"step\":\"alter-field\",\"new\":{\"id\":\"http://www.unicode.org/reports/tr38/\"}},{\"step\":\"to-solr\"}]"
+		"action": "[{\"step\":\"from-url\",\"url\":\"https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/unihan.csv.gz\"},{\"step\":\"gunzip\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"columns\":[\"property_id_s\",\"property_title_t\",\"property_remark_t\"]},{\"step\":\"to-solr\"},{\"step\":\"meta\",\"mapping\":{\"parent_s\":\"parent\",\"property_title_t\":\"title\",\"property_author_t\":\"author\"}},{\"step\":\"to-solr\"}]"
+	},
+	{
+		"title": "Official website",
+		"author": "Wikimedia Foundation",
+		"url": "site",
+		"frequency": -1,
+		"action": "[{\"step\":\"from-url\",\"url\":\"file:///data/src/website.csv.gz\"},{\"step\":\"gunzip\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"separator\":\"\t\",\"quotation_mark\":\"\\u001F\",\"columns\":[\"property_id_s\",\"property_title_en_t\",\"property_title_t\",\"property_alias_en_t\",\"property_alias_t\",\"property_description_en_t\",\"property_description_t\",\"property_url_s\"]},{\"step\":\"to-solr\"}]"
 	}
 ]

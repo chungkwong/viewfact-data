@@ -37,17 +37,43 @@ public class WikidataExtracter{
 	private static final int LIMIT=50;
 	private static final String PREFIX="https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en|zh&props=aliases|labels|descriptions&ids=";
 	public static void main(String[] args) throws IOException{
+		//fetchLabels();
+		joinLabels();
+	}
+	private static void joinLabels() throws IOException{
+		try(BufferedReader urlIn=Files.newBufferedReader(new File("cache/wikidata/wikisite_code.csv").toPath(),StandardCharsets.UTF_8);
+				BufferedReader labelIn=Files.newBufferedReader(new File("cache/wikidata/name_code.csv").toPath(),StandardCharsets.UTF_8);
+				BufferedWriter out=Files.newBufferedWriter(new File("cache/wikidata/website.csv").toPath(),StandardCharsets.UTF_8)){
+			String urlLine=urlIn.readLine();
+			String labelLine=labelIn.readLine();
+			out.write("property_id_s\tproperty_title_en_t\tproperty_title_t\tproperty_alias_en_t\tproperty_alias_t\tproperty_description_en_t\tproperty_description_t\tproperty_url_t");
+			labelLine=labelIn.readLine();
+			while((urlLine=urlIn.readLine())!=null&&labelLine!=null){
+				String entityCode=urlLine.substring(0,urlLine.indexOf('\t'));
+				if(labelLine.substring(0,labelLine.indexOf('\t')).equals(entityCode)){
+					out.newLine();
+					out.write(entityCode);
+					out.write(labelLine.substring(labelLine.indexOf('\t')));
+					out.write(urlLine.substring(urlLine.indexOf('\t')));
+					labelLine=labelIn.readLine();
+				}
+			}
+		}
+	}
+	private static void fetchLabels() throws IOException{
 		try(BufferedReader in=Files.newBufferedReader(new File("cache/wikidata/wikisite_code.csv").toPath(),StandardCharsets.UTF_8);
 				BufferedWriter out=Files.newBufferedWriter(new File("cache/wikidata/name_code.csv").toPath(),StandardCharsets.UTF_8)){
 			String line=in.readLine();
 			out.write("code\tlabel_en\tlabel_zh\talias_en\talias_zh\tdescription_en\tdescription_zh");
 			StringBuilder buf=new StringBuilder(PREFIX);
 			int i=0;
+			int count=0;
 			while((line=in.readLine())!=null){
 				String code=line.substring(0,line.indexOf('\t'));
 				if(++i==LIMIT){
 					buf.append(code);
 					handle(buf.toString(),out);
+					System.out.println(count+=LIMIT);
 					i=0;
 					buf.replace(0,buf.length(),PREFIX);
 				}else{
@@ -80,10 +106,8 @@ public class WikidataExtracter{
 			code=connection.getResponseCode();
 		}
 		Map<String,Map<String,Object>> map=(Map<String,Map<String,Object>>)new ObjectMapper().readValue(connection.getInputStream(),Map.class).get("entities");
-		System.out.println(url);
 		for(String entityCode:url.substring(PREFIX.length()).split("\\|")){
 			Map<String,Map<String,Object>> entity=(Map<String,Map<String,Object>>)(Map)map.get(entityCode);
-			System.out.println(entityCode+":"+entity);
 			if(entity!=null){
 				String labelEn="";
 				String aliasEn="";
@@ -132,7 +156,6 @@ public class WikidataExtracter{
 				out.write(descriptionEn.replace('\t',' '));
 				out.write('\t');
 				out.write(descriptionZh.replace('\t',' '));
-				System.out.println(entityCode+labelEn+aliasEn+descriptionEn);
 			}
 		}
 	}
