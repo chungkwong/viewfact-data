@@ -51,5 +51,19 @@
 		"url": "site",
 		"frequency": -1,
 		"action": "[{\"step\":\"from-url\",\"url\":\"file:///data/src/website.csv.gz\"},{\"step\":\"gunzip\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"separator\":\"\\t\",\"quotation_mark\":\"\\u001F\",\"columns\":[\"property_id_s\",\"property_title_en_t\",\"property_title_t\",\"property_alias_en_t\",\"property_alias_t\",\"property_description_en_t\",\"property_description_t\",\"property_url_s\"]},{\"step\":\"to-solr\"}]"
+	},
+	{
+		"title": "Viewfact selected sites",
+		"author": "chungkwong",
+		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/site.csv",
+		"frequency": 604800000,
+		"action": "[{\"step\":\"from-url\"},{\"step\":\"to-text\"},{\"step\":\"parse-csv\",\"columns\":[\"property_id_s\",\"property_title_en_t\",\"property_title_t\",\"property_alias_en_t\",\"property_alias_t\",\"property_description_en_t\",\"property_description_t\",\"property_url_s\"]},{\"step\":\"alter-field\",\"new\":{\"parent_s\":\"site\"}},{\"step\":\"to-solr\"}]"
+	},
+	{
+		"title": "Viewfact selected tools",
+		"author": "chungkwong",
+		"url": "https://raw.githubusercontent.com/chungkwong/viewfact-data/master/data/tool.json",
+		"frequency": 604800000,
+		"action": "[{\"step\":\"from-url\"},{\"step\":\"to-text\"},{\"step\":\"parse-json\",\"path\":\"$[*]\"},{\"step\":\"alter-field\",\"new\":{\"parent_s\":\"answer\"}},{\"step\":\"to-solr\"}]"
 	}
 ]

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2018 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>Tool</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<form style="width:100%">
+			<label for="urlencoder-decoded">Decoded</label><br>
+			<textarea id="urlencoder-decoded" style="width:100%" rows="1" placeholder="https://en.wikipedia.org/wiki/Hong Kong"></textarea><br>
+			<label for="urlencoder-encoded">Encoded</label><br>
+			<input id="urlencoder-encoded" type="text" style="width:100%" placeholder="https://en.wikipedia.org/wiki/Hong%20Kong"><br>
+		</form>
+		<script>
+			(function () {
+				var encoded = document.getElementById("urlencoder-encoded");
+				var decoded = document.getElementById("urlencoder-decoded");
+				var changing = false;
+				encoded.oninput = function () {
+					if (!changing) {
+						changing = true;
+						decoded.value = encodeURI(encoded.value);
+						changing = false;
+					}
+				};
+				decoded.oninput = function () {
+					if (!changing) {
+						changing = true;
+						encoded.value = encodeURI(decoded.value);
+						changing = false;
+					}
+				};
+			})();
+		</script>
+	</body>
+</html>
