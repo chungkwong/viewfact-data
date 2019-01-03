@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				encoded.oninput = function () {
 					if (!changing) {
 						changing = true;
-						decoded.value = encodeURI(encoded.value);
+						decoded.value = decodeURI(encoded.value);
 						changing = false;
 					}
 				};
