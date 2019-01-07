@@ -1,3 +1,8 @@
 property_id_s,property_title_en_t,property_title_t,property_alias_en_t,property_alias_t,property_description_en_t,property_description_t,property_url_s
 ,Primary Care Directory,基層醫療指南,,,facilitate the public to search for their own doctors, dentists and Chinese medicine practitioners,方便市民選擇合適的西醫、牙醫和中醫,https://apps.pcdirectory.gov.hk/Public/Search/AdvancedSearch.aspx
 ,Integrated Companies Registry Information System,公司註冊處網上查冊中心,ICRIS,,"Search for Company Name, Company Particulars, Image Record, Directors Index, Register of Charges, Register of Disqualification Orders",查閲公司名稱、公司資料、影像紀錄、董事索引、押記索引、消資格令索引,https://www.icris.cr.gov.hk/csci/
+,PATENTSCOPE,PATENTSCOPE,,,Search International and National Patent Collections,检索国际和国家专利汇编,https://patentscope2.wipo.int/search/zh/search.jsf
+,,中国法律法规信息库,,,,宪法法律；行政法规及文件；部委规章及文件；司法解释及文件；地方性法规规章；修正案；法律解释；决定,http://law.npc.gov.cn/FLFG/
+,,中国高等教育学历证书查询,,,,,https://www.chsi.com.cn/xlcx/lscx/query.do
+,,客機抵港航班, 航班資料 - 香港國際機場,,,,,http://www.hongkongairport.com/tc/flights/arrivals/passenger.page
+,,客機離港航班, 航班資料 - 香港國際機場,,,,,http://www.hongkongairport.com/tc/flights/departures/passenger.page
