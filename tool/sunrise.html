@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	</head>
+	<body>
+		<form>
+			<label for='sunrise-date'>Date(日期)</label><input id='sunrise-date' type='date' oninput='updateSunrise()'>
+			<label for='sunrise-tz'>Timezone(時區)</label><input id='sunrise-tz' type='number' value='8' oninput='updateSunrise()'><br>
+			<label for='sunrise-latitude'>Latitude(北緯)</label><input id='sunrise-latitude' type='number' value='22.30187' oninput='updateSunrise()'>
+			<label for='sunrise-longitude'>Longitude(東經)</label><input id='sunrise-longitude' type='number' value='114.17340' oninput='updateSunrise()'><br>
+			<label for='sunrise-time'>Sunrise(日出)</label><output id='sunrise-time'></output>
+			<label for='sunset-time'>Sunset(日落)</label><output id='sunset-time'></output>
+		</form>
+		<script>
+			var updateSunrise = function () {
+				var date = document.getElementById('sunrise-date').value;
+				var latitude = parseFloat(document.getElementById('sunrise-latitude').value);
+				var longitude = parseFloat(document.getElementById('sunrise-longitude').value);
+				var tz = parseFloat(document.getElementById('sunrise-tz').value);
+				var dateFields = /([0-9]{4})-([0-9]{2})-([0-9]{2})/.exec(date);
+				var year = parseInt(dateFields[1], 10);
+				var month = parseInt(dateFields[2], 10);
+				var day = parseInt(dateFields[3], 10);
+				var N1 = Math.floor(275 * month / 9);
+				var N2 = Math.floor((month + 9) / 12);
+				var N3 = (1 + Math.floor((year - 4 * Math.floor(year / 4) + 2) / 3));
+				var N = N1 - (N2 * N3) + day - 30;
+				var lngHour = longitude / 15;
+				var calculateCosh = function (t) {
+					var t = N + ((6 - lngHour) / 24);
+					var M = (0.9856 * t) - 3.289;
+					var L = M + (1.916 * Math.sin(M * Math.PI / 180)) + (0.020 * Math.sin(2 * M * Math.PI / 180)) + 282.634;
+					L = (L + 360000) % 360;
+					var RA = Math.atan(0.91764 * Math.tan(L * Math.PI / 180)) * 180 / Math.PI;
+					RA = (RA + 360000) % 360;
+					var Lquadrant = (Math.floor(L / 90)) * 90;
+					var RAquadrant = (Math.floor(RA / 90)) * 90;
+					RA += (Lquadrant - RAquadrant);
+					RA /= 15;
+					var sinDec = 0.39782 * Math.sin(L * Math.PI / 180);
+					var cosDec = Math.cos(Math.asin(sinDec));
+					return [(Math.cos(90.83 * Math.PI / 180) - (sinDec * Math.sin(latitude * Math.PI / 180))) / (cosDec * Math.cos(latitude * Math.PI / 180)), RA, t];
+				}
+				var formatTime = function (H, RA, t) {
+					H /= 15;
+					var T = H + RA - (0.06571 * t) - 6.622;
+					var UT = T - lngHour;
+					UT = (UT + 2400 + tz) % 24;
+					var hour = Math.floor(UT);
+					var minute = Math.floor((UT - hour) * 60);
+					return hour + ':' + minute;
+				}
+				var calculateSunrise = function () {
+					var t = N + ((6 - lngHour) / 24);
+					var cosH = calculateCosh(t);
+					if (cosH[0] > 1)
+						return '';
+					else {
+						var H = 360 - Math.acos(cosH[0]) * 180 / Math.PI;
+						return formatTime(H, cosH[1], cosH[2]);
+
+					}
+				}
+				var calculateSunset = function () {
+					var t = N + ((18 - lngHour) / 24);
+					var cosH = calculateCosh(t);
+					if (cosH[0] < -1)
+						return '';
+					else {
+						var H = Math.acos(cosH[0]) * 180 / Math.PI;
+						return formatTime(H, cosH[1], cosH[2]);
+					}
+				}
+				document.getElementById('sunrise-time').textContent = calculateSunrise();
+				document.getElementById('sunset-time').textContent = calculateSunset();
+			};
+			document.getElementById('sunrise-date').value = new Date().toISOString().substring(0, 10);
+			updateSunrise();
+		</script>
+	</body>
+</html>
