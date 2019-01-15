@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	</head>
+	<body>
+		<table id='currency'><tr><th>貨幣(Currency)</th><th>牌價(Rate)</th></tr></table>
+		<script>
+			(function () {
+				var table = document.getElementById('currency');
+				var request = new XMLHttpRequest();
+				request.onload = function (e) {
+					var rates = request.response['rates'];
+					var keys = Object.keys(rates).sort();
+					for (var rate in keys) {
+						var row = document.createElement('tr');
+						var key = document.createElement('td');
+						key.textContent = keys[rate];
+						row.appendChild(key);
+						var value = document.createElement('td');
+						value.textContent = 1.0 / rates[keys[rate]];
+						row.appendChild(value);
+						table.appendChild(row);
+					}
+				};
+				request.open('GET', 'https://api.exchangeratesapi.io/latest?base=HKD');
+				request.responseType = 'json';
+				request.send();
+			})();
+		</script>
+	</body>
+</html>
