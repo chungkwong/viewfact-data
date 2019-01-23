@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div id="inputWidget">
+			<textarea id="imOutput" placeholder="請在此輸入"></textarea>
+			<div>
+				<select id="imChooser">
+					<option value="wubi">五筆</option>
+					<option value="cangjie">倉頡</option>
+					<option value="zhengma">鄭碼</option>
+					<option value="pinyin">全拼</option>
+					<option value="cantonhk">港拼</option>
+					<option value="english">英文</option>
+				</select>
+				<input id="imInput" type="text" disabled>
+				<ol id="imCandidates" start="0">
+				</ol>
+			</div>
+			<div>
+				使用説明：
+				<ul>
+					<li>用空格輸入候選0</li>
+					<li>用數字輸入指定候選</li>
+					<li>用回车鍵输入字面的碼</li>
+					<li>用PageUp和PageDown鍵翻頁候選</li>
+					<li>用Ctrl-上下方向鍵選輸入法</li>
+				</ul>
+			</div>
+		</div>
+		<script src="js/im.js"></script>
+	</body>
+</html>
