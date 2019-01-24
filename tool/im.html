@@ -18,23 +18,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <html>
 	<head>
 		<title>TODO supply a title</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	</head>
 	<body>
-		<div id="inputWidget">
-			<textarea id="imOutput" placeholder="請在此輸入"></textarea>
+		<div id='inputWidget' style='width: 100%'>
+			<textarea id='imOutput' placeholder='請在此輸入' style='width: 100%'></textarea>
 			<div>
-				<select id="imChooser">
-					<option value="wubi">五筆</option>
-					<option value="cangjie">倉頡</option>
-					<option value="zhengma">鄭碼</option>
-					<option value="pinyin">全拼</option>
-					<option value="cantonhk">港拼</option>
-					<option value="english">英文</option>
+				<select id='imChooser'>
+					<option value='wubi'>五筆</option>
+					<option value='cangjie'>倉頡</option>
+					<option value='zhengma'>鄭碼</option>
+					<option value='pinyin'>全拼</option>
+					<option value='cantonhk'>港拼</option>
+					<option value='english'>英文</option>
 				</select>
-				<input id="imInput" type="text" disabled>
-				<ol id="imCandidates" start="0">
+				<input id='imInput' type='text' disabled>
+				<ol id='imCandidates' start='0'>
 				</ol>
 			</div>
 			<div>
@@ -42,12 +42,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				<ul>
 					<li>用空格輸入候選0</li>
 					<li>用數字輸入指定候選</li>
-					<li>用回车鍵输入字面的碼</li>
+					<li>用回车鍵輸入字面的碼</li>
 					<li>用PageUp和PageDown鍵翻頁候選</li>
 					<li>用Ctrl-上下方向鍵選輸入法</li>
 				</ul>
 			</div>
 		</div>
-		<script src="js/im.js"></script>
+		<script src='https://assets.viewfact.org/js/im.js'></script>
+		<script>
+			imInit(document.getElementById("imOutput"),document.getElementById("imCandidates"),document.getElementById("imChooser"),document.getElementById("imInput"),
+					{
+						wubi:["abcdefghijklmnopqrstuvwxy","abcdefghijklmnopqrstuvwxy","z","https://assets.viewfact.org/js/data/wbx.txt"],
+						pinyin:["abcdefghijklmnopqrstuvwxyz","abcdefghijklmnopqrstuvwxyz","?","https://assets.viewfact.org/js/data/pinyin.txt"],
+						cantonhk:["abcdefghijklmnopqrstuvwxyz","abcdefghijklmnopqrstuvwxyz","?","https://assets.viewfact.org/js/data/cantonhk.txt"],
+						cangjie:["abcdefghijklmnopqrstuvwxyz","日月金木水火土竹戈十大中一弓人心手口尸廿山女田難卜重","?","https://assets.viewfact.org/js/data/cangjie5.txt"],
+						zhengma:["abcdefghijklmnopqrstuvwxyz","abcdefghijklmnopqrstuvwxyz","?","https://assets.viewfact.org/js/data/zhengma.txt"],
+						english:["","","",null]
+					});
+		</script>
 	</body>
 </html>
