@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	</head>
+	<body>
+		<textarea id='html-in' placeholder='<i>Hello</i>' style='width:100%' rows='3' oninput='htmlRefreshIfNeeded()' autofocus></textarea>
+		<form><input type='checkbox' id='html-realtime' onchange='htmlRefreshIfNeeded()' checked><label for='html-realtime'>實時預覽(Auto preview)</label><button id='html-refresh' onclick='return htmlRefresh()'>更新預覽(Refresh)</button></form>
+		<iframe id='html-out' style='width: 100%'></iframe>
+		<script type='text/javascript'>
+			var htmlRefresh=function(){
+				document.getElementById('html-out').srcdoc=document.getElementById('html-in').value;
+				return false;
+			};
+			var htmlRefreshIfNeeded=function(){
+				if(document.getElementById('html-realtime').checked){
+					htmlRefresh();
+				}
+				return false;
+			};
+		</script>
+
+	</body>
+</html>
