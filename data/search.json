@@ -640,5 +640,17 @@
 		"property_description_t": "地址 电话 電話 黄页 黃頁 yp",
 		"property_catalog_t": "飲食娛樂 購物旅遊  食品糧油 餐飲業設備  家居用品及服務 寵物  醫療美容 健康護理  婚禮服務  教育 藝術 康體運動  建造 裝修 環保工程  銀行金融 地產保險  商業及專業服務  社團 宗教 公共事業  禮品 花卉 珠寶 玩具  服裝及配飾 紡織品  印刷 辦公室用品  電腦及資訊科技  電子零件及設備  運輸 物流  五金 機械 儀器  塑膠 石油 化工",
 		"id": "http://www.yp.com.hk/s-$/p1/ch/"
+	},
+	{
+		"property_title_t": "StackExchange",
+		"property_description_t": "stackexchange",
+		"property_catalog_t": "stack exchange question answer",
+		"id": "https://stackexchange.com/search?q="
+	},
+	{
+		"property_title_t": "美食杰",
+		"property_description_t": "茶谱 食譜 食谱",
+		"property_catalog_t": "",
+		"id": "https://so.meishi.cc/?q="
 	}
 ]
