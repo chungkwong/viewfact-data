@@ -644,7 +644,7 @@
 	{
 		"property_title_t": "StackExchange",
 		"property_description_t": "stackexchange",
-		"property_catalog_t": "stack exchange question answer",
+		"property_catalog_t": "stack exchange question answer stackoverflow serverfault superuser meta webapps gaming webmasters cooking gamedev photo stats math diy gis tex askubuntu money english stackapps ux unix wordpress cstheory apple rpg bicycles softwareengineering electronics android boardgames physics homebrew security writing video graphicdesign dba scifi codereview codegolf quant pm skeptics fitness drupal mechanics parenting sharepoint music sqa judaism german japanese philosophy gardening travel crypto dsp french christianity bitcoin linguistics hermeneutics history bricks spanish scicomp movies chinese biology poker mathematica psychology outdoors martialarts sports academia cs workplace windowsphone chemistry chess raspberrypi russian islam salesforce patents genealogy robotics expressionengine politics anime magento ell sustainability tridion reverseengineering networkengineering opendata freelancing blender mathoverflow space sound astronomy tor pets ham italian aviation ebooks alcohol softwarerecs arduino expatriates matheducators earthscience joomla datascience puzzling craftcms buddhism hinduism communitybuilding worldbuilding emacs hsm economics lifehacks engineering coffee vi musicfans woodworking civicrm medicalsciences rus mythology law opensource elementaryos portuguese computergraphics hardwarerecs 3dprinting ethereum latin languagelearning retrocomputing crafts korean monero ai esperanto sitecore iot literature vegetarianism ukrainian devops bioinformatics cseducators interpersonal augur iota stellar conlang quantumcomputing eosio",
 		"id": "https://stackexchange.com/search?q="
 	},
 	{
@@ -652,5 +652,11 @@
 		"property_description_t": "茶谱 食譜 食谱",
 		"property_catalog_t": "",
 		"id": "https://so.meishi.cc/?q="
+	},
+	{
+		"property_title_t": "Abbreviations",
+		"property_description_t": "abbreviation abbr meaning 缩写 縮寫",
+		"property_catalog_t": "",
+		"id": "https://www.abbreviations.com/"
 	}
 ]

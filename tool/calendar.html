@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div>TODO write content</div>
+		<input id="calendarYear" type="number">
+		<input id="calendarMonth" type="number" min="1"  max="12">
+		<table>
+			<thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead>
+			<tbody id="calendar">
+				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			</tbody>
+		</table>
+		<table>
+			<tbody>
+				<tr><td>农历</td><td id="calendarLunar"></td></tr>
+			</tbody>
+		</table>
+		<script>
+			var calendarSelect=function(date){
+				var option={"year":"numeric","month":"numeric","day":"numeric"};
+				document.getElementById("calendarLunar").textContent=new Intl.DateTimeFormat("zh-CN-u-ca-chinese",option).format(date);
+			};
+			var calendarRefresh=function(){
+				var year=document.getElementById("calendarYear").value;
+				var month=document.getElementById("calendarMonth").value;
+				var cells=[];
+				for(var i=0;i<6;i++){
+					var row=document.getElementById("calendar").children[i];
+					for(var j=0;j<7;j++){
+						var cell=row.children[j];
+						cell.textContent='';
+						cell.style.backgroundcolor='white';
+						if(j===0){
+							cell.style.backgroundcolor='red';
+						}
+						cell.onclick=null;
+						cells.push(cell);
+					}
+				}
+				var start=new Date(year,month-1,1).getDay();
+				var end;
+				switch(Number(month)){
+					case 1:
+					case 3:
+					case 5:
+					case 7:
+					case 8 :
+					case 10:
+					case 12:
+						end=31;
+						break;
+					case 4:
+					case 6:
+					case 9:
+					case 11:
+						end=30;
+						break;
+					case 2:
+						end=((year%400===0)||(year%4===0&&year%100!==0))?29:28;
+						break;
+				}
+				end+=start;
+				for(var i=start,j=1;i<end;i++,j++){
+					cells[i].textContent=j;
+					cells[i].onclick=function(){
+						for(var j=0;j<7*6;j++){
+							cells[j].style.backgroundcolor="white";
+						}
+						cells[i].style.backgroundcolor="yellow";
+						calendarSelect(new Date(year,month-1,j));//FIXME
+					};
+				}
+			};
+			document.getElementById("calendarYear").value=new Date().getFullYear();
+			document.getElementById("calendarMonth").value=new Date().getMonth()+1;
+			document.getElementById("calendarYear").onchange=calendarRefresh;
+			document.getElementById("calendarMonth").onchange=calendarRefresh;
+			calendarRefresh();
+			calendarSelect(new Date());
+		</script>
+	</body>
+</html>
