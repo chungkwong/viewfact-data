@@ -18,16 +18,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <html>
 	<head>
 		<title>TODO supply a title</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	</head>
 	<body>
 		<div>TODO write content</div>
-		<input id="calendarYear" type="number">
-		<input id="calendarMonth" type="number" min="1"  max="12">
+		<input id='calendarYear' type='number' size='4'><label for='calendarYear'>年</label>
+		<input id='calendarMonth' type='number' min='1'  max='12' size='2'><label for='calendarMonth'>月</label>
 		<table>
 			<thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead>
-			<tbody id="calendar">
+			<tbody id='calendar'>
 				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -38,26 +38,67 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		</table>
 		<table>
 			<tbody>
-				<tr><td>农历</td><td id="calendarLunar"></td></tr>
+				<tr><td>佛曆</td><td id='calendarBuddhist'></td></tr>
+				<tr><td>農曆</td><td id='calendarLunar'></td></tr>
+				<tr><td>科普特曆</td><td id='calendarCoptic'></td></tr>
+				<tr><td>埃塞俄比亞曆</td><td id='calendarEthioaa'></td></tr>
+				<tr><td>埃塞俄比亞曆</td><td id='calendarEthiopic'></td></tr>
+				<tr><td>格雷戈里曆</td><td id='calendarGregory'></td></tr>
+				<tr><td>希伯来曆</td><td id='calendarHebrew'></td></tr>
+				<tr><td>印度</td><td id='calendarIndian'></td></tr>
+				<tr><td>伊斯蘭曆</td><td id='calendarIslamic'></td></tr>
+				<tr><td>公曆</td><td id='calendarIso'></td></tr>
+				<tr><td>日本曆</td><td id='calendarJapanese'></td></tr>
+				<tr><td>波斯曆</td><td id='calendarPersian'></td></tr>
+				<tr><td>中華民國曆</td><td id='calendarRoc'></td></tr>
+			</tbody>
+		</table>
+		<table>
+			<tbody id="calendarTerms">
+
 			</tbody>
 		</table>
 		<script>
+			var calendarSelected=null;
+			var calendarLiteral={
+				sky:['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'],
+				land:['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'],
+				number:['','一','二','三','四','五','六','七','八','九'],
+				tens:['初','十','廿','卅']
+			};
 			var calendarSelect=function(date){
-				var option={"year":"numeric","month":"numeric","day":"numeric"};
-				document.getElementById("calendarLunar").textContent=new Intl.DateTimeFormat("zh-CN-u-ca-chinese",option).format(date);
+				var option={'year':'numeric','month':'long','day':'numeric'};
+				document.getElementById('calendarBuddhist').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-buddhist',option).format(date);
+				var lunarYear=new Intl.DateTimeFormat('zh-CN-u-ca-chinese',{'year':'numeric'}).formatToParts(date).filter((obj)=>obj.type==='year')[0].value-1;
+				var lunarDay=new Intl.DateTimeFormat('zh-CN-u-ca-chinese',{'day':'numeric'}).formatToParts(date).filter((obj)=>obj.type==='day')[0].value;
+				var lunar=calendarLiteral.sky[lunarYear%10]+calendarLiteral.land[lunarYear%12];
+				lunar+='年'+new Intl.DateTimeFormat('zh-CN-u-ca-chinese',{'month':'long'}).format(date);
+				lunar+=calendarLiteral.tens[Math.floor(lunarDay/10)]+calendarLiteral.number[lunarDay%10];
+				document.getElementById('calendarLunar').textContent=lunar;
+				document.getElementById('calendarCoptic').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-coptic',option).format(date);
+				document.getElementById('calendarEthioaa').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-ethioaa',option).format(date);
+				document.getElementById('calendarEthiopic').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-ethiopic',option).format(date);
+				document.getElementById('calendarGregory').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-gregory',option).format(date);
+				document.getElementById('calendarHebrew').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-hebrew',option).format(date);
+				document.getElementById('calendarIndian').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-indian',option).format(date);
+				document.getElementById('calendarIslamic').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-islamic',option).format(date);
+				document.getElementById('calendarIso').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-iso8601',option).format(date);
+				document.getElementById('calendarJapanese').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-japanese',option).format(date);
+				document.getElementById('calendarPersian').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-persian',option).format(date);
+				document.getElementById('calendarRoc').textContent=new Intl.DateTimeFormat('zh-CN-u-ca-roc',option).format(date);
 			};
 			var calendarRefresh=function(){
-				var year=document.getElementById("calendarYear").value;
-				var month=document.getElementById("calendarMonth").value;
+				var year=document.getElementById('calendarYear').value;
+				var month=document.getElementById('calendarMonth').value;
 				var cells=[];
 				for(var i=0;i<6;i++){
-					var row=document.getElementById("calendar").children[i];
+					var row=document.getElementById('calendar').children[i];
 					for(var j=0;j<7;j++){
 						var cell=row.children[j];
 						cell.textContent='';
-						cell.style.backgroundcolor='white';
+						cell.style.backgroundColor='white';
 						if(j===0){
-							cell.style.backgroundcolor='red';
+							cell.style.color='red';
 						}
 						cell.onclick=null;
 						cells.push(cell);
@@ -86,21 +127,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						break;
 				}
 				end+=start;
-				for(var i=start,j=1;i<end;i++,j++){
-					cells[i].textContent=j;
-					cells[i].onclick=function(){
-						for(var j=0;j<7*6;j++){
-							cells[j].style.backgroundcolor="white";
-						}
-						cells[i].style.backgroundcolor="yellow";
-						calendarSelect(new Date(year,month-1,j));//FIXME
-					};
+				for(var i=start,k=1;i<end;i++,k++){
+					cells[i].textContent=k;
+					(function(d,cell){
+						cells[i].onclick=function(){
+							if(calendarSelected!==null)
+								calendarSelected.style.backgroundColor='white';
+							cell.style.backgroundColor='yellow';
+							calendarSelected=cell;
+							calendarSelect(new Date(year,month-1,d));
+						};
+					})(k,cells[i]);
+				}
+				var termInfo=[0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758];
+				var solarTerm=['小寒','大寒','立春','雨水','惊蛰','春分','清明','谷雨','立夏','小满','芒种','夏至','小暑','大暑','立秋','处暑','白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至'];
+				var termTable=document.getElementById("calendarTerms");
+				while(termTable.hasChildNodes()){
+					termTable.removeChild(termTable.lastChild);
+				}
+				for(var term in solarTerm){
+					var row=document.createElement("tr");
+					var key=document.createElement("td");
+					key.textContent=solarTerm[term];
+					row.appendChild(key);
+					var value=document.createElement("td");
+					value.textContent=new Date((31556925974.7*(year-1890)+termInfo[term]*60000)+Date.UTC(1890,0,5,16,2,31)).toLocaleDateString();
+					row.appendChild(value);
+					termTable.appendChild(row);
 				}
 			};
-			document.getElementById("calendarYear").value=new Date().getFullYear();
-			document.getElementById("calendarMonth").value=new Date().getMonth()+1;
-			document.getElementById("calendarYear").onchange=calendarRefresh;
-			document.getElementById("calendarMonth").onchange=calendarRefresh;
+			document.getElementById('calendarYear').value=new Date().getFullYear();
+			document.getElementById('calendarMonth').value=new Date().getMonth()+1;
+			document.getElementById('calendarYear').onchange=calendarRefresh;
+			document.getElementById('calendarMonth').onchange=calendarRefresh;
 			calendarRefresh();
 			calendarSelect(new Date());
 		</script>
