@@ -53,11 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				<tr><td>中華民國曆</td><td id='calendarRoc'></td></tr>
 			</tbody>
 		</table>
-		<table>
-			<tbody id="calendarTerms">
-
-			</tbody>
-		</table>
 		<script>
 			var calendarSelected=null;
 			var calendarLiteral={
@@ -139,22 +134,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						};
 					})(k,cells[i]);
 				}
-				var termInfo=[0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758];
-				var solarTerm=['小寒','大寒','立春','雨水','惊蛰','春分','清明','谷雨','立夏','小满','芒种','夏至','小暑','大暑','立秋','处暑','白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至'];
-				var termTable=document.getElementById("calendarTerms");
-				while(termTable.hasChildNodes()){
-					termTable.removeChild(termTable.lastChild);
-				}
-				for(var term in solarTerm){
-					var row=document.createElement("tr");
-					var key=document.createElement("td");
-					key.textContent=solarTerm[term];
-					row.appendChild(key);
-					var value=document.createElement("td");
-					value.textContent=new Date((31556925974.7*(year-1890)+termInfo[term]*60000)+Date.UTC(1890,0,5,16,2,31)).toLocaleDateString();
-					row.appendChild(value);
-					termTable.appendChild(row);
-				}
 			};
 			document.getElementById('calendarYear').value=new Date().getFullYear();
 			document.getElementById('calendarMonth').value=new Date().getMonth()+1;
@@ -162,6 +141,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			document.getElementById('calendarMonth').onchange=calendarRefresh;
 			calendarRefresh();
 			calendarSelect(new Date());
+		</script>
+		<input id='solarYear' type='number' size='4'><label for='solarYear'>年</label>
+		<table>
+			<tbody id='solarTerms'>
+				<tr><td>小寒</td><td></td></tr>
+				<tr><td>大寒</td><td></td></tr>
+				<tr><td>立春</td><td></td></tr>
+				<tr><td>雨水</td><td></td></tr>
+				<tr><td>惊蛰</td><td></td></tr>
+				<tr><td>春分</td><td></td></tr>
+				<tr><td>清明</td><td></td></tr>
+				<tr><td>谷雨</td><td></td></tr>
+				<tr><td>立夏</td><td></td></tr>
+				<tr><td>小满</td><td></td></tr>
+				<tr><td>芒种</td><td></td></tr>
+				<tr><td>夏至</td><td></td></tr>
+				<tr><td>小暑</td><td></td></tr>
+				<tr><td>大暑</td><td></td></tr>
+				<tr><td>立秋</td><td></td></tr>
+				<tr><td>处暑</td><td></td></tr>
+				<tr><td>白露</td><td></td></tr>
+				<tr><td>秋分</td><td></td></tr>
+				<tr><td>寒露</td><td></td></tr>
+				<tr><td>霜降</td><td></td></tr>
+				<tr><td>立冬</td><td></td></tr>
+				<tr><td>小雪</td><td></td></tr>
+				<tr><td>大雪</td><td></td></tr>
+				<tr><td>冬至</td><td></td></tr>
+			</tbody>
+		</table>
+		<script>
+			var solarTerms=function(){
+				var year=document.getElementById('solarYear').value;
+				var termInfo=[0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758];
+				var termTable=document.getElementById('solarTerms');
+				for(var term in termInfo){
+					termTable.children[term].children[1].textContent=new Date((31556925974.7*(year-1890)+termInfo[term]*60000)+Date.UTC(1890,0,5,8,2,31)).toLocaleDateString();
+				}
+			};
+			document.getElementById('solarYear').onchange=solarTerms;
+			document.getElementById('solarYear').value=new Date().getFullYear();
+			solarTerms();
 		</script>
 	</body>
 </html>
