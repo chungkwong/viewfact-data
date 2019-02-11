@@ -11,38 +11,45 @@ var escapeTableLoad=function(file){
 		var lines=request.responseText.split("\n");
 		for(var i in lines){
 			var line=lines[i];
-			var offset=line.indexOf("↔");
+			var offset=line.indexOf("↔",1);
 			if(offset>=0){
-				forward.push([line.substring(0,offset),line.substring(offset+1)]);
-				backward.push([line.substring(offset+1),line.substring(0,offset)]);
+				var key=line.substring(0,offset);
+				var value=line.substring(offset+1);
+				forward.push([key,value]);
+				backward.push([value,key]);
 			}else{
-				offset=lines.indexOf("←");
+				offset=line.indexOf("←",1);
 				if(offset>=0){
 					backward.push([line.substring(offset+1),line.substring(0,offset)]);
 				}else{
-					offset=lines.indexOf("→");
+					offset=line.indexOf("→",1);
 					if(offset>=0){
 						forward.push([line.substring(0,offset),line.substring(offset+1)]);
 					}
 				}
 			}
 		}
+		escapeArraySort(forward);
+		escapeArraySort(backward);
 	};
 	request.open("GET",file);
 	request.responseType="text";
 	request.send();
 	return {"forward":forward,"backward":backward};
 };
+var escapeTableInit=function(table){
+	escapeArraySort(table.forward);
+	escapeArraySort(table.backward);
+	return table;
+};
 var escapeTableFromForward=function(forward){
 	var backward=[];
 	for(var i in forward){
 		backward[i]=[forward[i][1],forward[i][0]];
 	}
-	return {"forward":forward,"backward":backward};
+	return escapeTableInit({"forward":forward,"backward":backward});
 };
 var escaper=function(from,to,table){
-	escapeArraySort(table.forward);
-	escapeArraySort(table.backward);
 	var find=function(key,mapping){
 		var lower=0;
 		var upper=mapping.length-1;
@@ -58,9 +65,9 @@ var escaper=function(from,to,table){
 		}
 		return mapping[lower][0].startsWith(key)?mapping[lower]:null;
 	};
-	var listen=function(input,output,mapping,postProcessor){
+	var listen=function(input,output,mapping,preprocessor){
 		input.oninput=function(){
-			var toConvert=input.value;
+			var toConvert=preprocessor(input.value);
 			var buf="";
 			for(var i=0;i<toConvert.length;i++){
 				var j=i+1;
@@ -84,13 +91,13 @@ var escaper=function(from,to,table){
 					buf+=toConvert.charAt(i);
 				}
 			}
-			output.value=postProcessor(buf);
+			output.value=buf;
 		};
 	};
-	listen(from,to,table.forward,table.forwardPostProcessor!==null?table.forwardPostProcessor:function(str){
+	listen(from,to,table.forward,typeof table.forwardPreprocessor!=='undefined'?table.forwardPreprocessor:function(str){
 		return str;
 	});
-	listen(to,from,table.backward,table.backwardPostProcessor!==null?table.backwardPostProcessor:function(str){
+	listen(to,from,table.backward,typeof table.backwardPreprocessor!=='undefined'?table.backwardPreprocessor:function(str){
 		return str;
 	});
 };

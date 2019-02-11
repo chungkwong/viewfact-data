@@ -24,12 +24,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	<body>
 		<label for="escaper-hant">繁體</label><textarea id='escaper-hant' placeholder='' style='width:100%' rows='3'></textarea>
 		<label for="escaper-hans">简体</label><textarea id='escaper-hans' placeholder='' style='width:100%' rows='3'></textarea>
-		<label for="escaper-literal">未轉義</label><textarea id='escaper-literal' placeholder='' style='width:100%' rows='3'></textarea>
-		<label for="escaper-string">已轉義</label><textarea id='escaper-string' placeholder='' style='width:100%' rows='3'></textarea>
-		<script src="js/replace.js"></script>
+		<h2>JSON字符串轉義</h2>
+		<label for="escaper-json-literal">未轉義</label><textarea id='escaper-json-literal' placeholder='' style='width:100%' rows='3'></textarea>
+		<label for="escaper-json-string">已轉義</label><textarea id='escaper-json-string' placeholder='' style='width:100%' rows='3'></textarea>
+		<h2>HTML字符串轉義</h2>
+		<label for="escaper-html-literal">未轉義</label><textarea id='escaper-html-literal' placeholder='' style='width:100%' rows='3'></textarea>
+		<label for="escaper-html-string">已轉義</label><textarea id='escaper-html-string' placeholder='' style='width:100%' rows='3'></textarea>
+		<script src="js/escape.js"></script>
 		<script>
 			escaper(document.getElementById("escaper-hans"),document.getElementById("escaper-hant"),escapeTableLoad("data/hans_hant.txt"));
-			escaper(document.getElementById("escaper-literal"),document.getElementById("escaper-string"),escapeTableFromForward([["\\","\\\\"],["\r","\\r"],["\n","\\n"],["\t","\\t"],["\"","\\\""]]));
+			var escapeTableJson=escapeTableFromForward([["\\","\\\\"],["\r","\\r"],["\n","\\n"],["\t","\\t"],["\b","\\b"],["/","\\/"],["\"","\\\""]]);
+			escapeTableJson.backwardPreprocessor=function(str){
+				var offset=str.indexOf("\\u");
+				var buf="";
+				var oldOffset=0;
+				while(offset>=0){
+					buf+=str.substring(oldOffset,offset);
+					oldOffset=Math.min(offset+6,str.length);
+					buf+=String.fromCharCode(parseInt(str.substring(offset+2,oldOffset),16));
+					offset=str.indexOf("\\u",offset+1);
+				}
+				return buf+str.substring(oldOffset);
+			};
+			var escapeTableHtml=escapeTableLoad("data/html.txt");
+			escapeTableHtml.backwardPreprocessor=function(str){
+				var offset=str.indexOf("&#");
+				var buf="";
+				var oldOffset=0;
+				while(offset>=0){
+					buf+=str.substring(oldOffset,offset);
+					oldOffset=str.indexOf(";",offset)+1;
+					if(str.charAt(offset+2)==='x'||str.charAt(offset+2)==='X'){
+						buf+=String.fromCharCode(parseInt(str.substring(offset+3,oldOffset-1),16));
+					}else{
+						buf+=String.fromCharCode(parseInt(str.substring(offset+2,oldOffset-1),10));
+					}
+					offset=str.indexOf("&#",offset+1);
+				}
+				return buf+str.substring(oldOffset);
+			};
+			escaper(document.getElementById("escaper-json-literal"),document.getElementById("escaper-json-string"),escapeTableJson);
+			escaper(document.getElementById("escaper-html-literal"),document.getElementById("escaper-html-string"),escapeTableHtml);
 		</script>
 	</body>
 </html>
