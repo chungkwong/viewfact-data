@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	</head>
+	<body>
+		<label for='escaper-hant'>繁體</label><textarea id='escaper-hant' placeholder='' style='width:100%' rows='3'></textarea>
+		<label for='escaper-hans'>简体</label><textarea id='escaper-hans' placeholder='' style='width:100%' rows='3'></textarea>
+		<h2>JSON轉義</h2>
+		<label for='escaper-json-literal'>未轉義</label><textarea id='escaper-json-literal' placeholder='' style='width:100%' rows='3'></textarea>
+		<label for='escaper-json-string'>已轉義</label><textarea id='escaper-json-string' placeholder='' style='width:100%' rows='3'></textarea>
+		<h2>HTML轉義</h2>
+		<label for='escaper-html-literal'>未轉義</label><textarea id='escaper-html-literal' placeholder='' style='width:100%' rows='3'></textarea>
+		<label for='escaper-html-string'>已轉義</label><textarea id='escaper-html-string' placeholder='' style='width:100%' rows='3'></textarea>
+		<script src='js/escape.js'></script>
+		<script>
+			escaper(document.getElementById('escaper-hans'),document.getElementById('escaper-hant'),escapeTableLoad('data/hans_hant.txt'));
+			var escapeTableJson=escapeTableFromForward([['\\','\\\\'],['\r','\\r'],['\n','\\n'],['\t','\\t'],['\b','\\b'],['/','\\/'],['\"','\\\"']]);
+			escapeTableJson.backwardPreprocessor=function(str){
+				var offset=str.indexOf('\\u');
+				var buf='';
+				var oldOffset=0;
+				while(offset>=0){
+					buf+=str.substring(oldOffset,offset);
+					oldOffset=Math.min(offset+6,str.length);
+					buf+=String.fromCharCode(parseInt(str.substring(offset+2,oldOffset),16));
+					offset=str.indexOf('\\u',offset+1);
+				}
+				return buf+str.substring(oldOffset);
+			};
+			var escapeTableHtml=escapeTableLoad('data/html_escape.txt');
+			escapeTableHtml.backwardPreprocessor=function(str){
+				var offset=str.indexOf('&#');
+				var buf='';
+				var oldOffset=0;
+				while(offset>=0){
+					buf+=str.substring(oldOffset,offset);
+					oldOffset=str.indexOf(';',offset)+1;
+					if(str.charAt(offset+2)==='x'||str.charAt(offset+2)==='X'){
+						buf+=String.fromCharCode(parseInt(str.substring(offset+3,oldOffset-1),16));
+					}else{
+						buf+=String.fromCharCode(parseInt(str.substring(offset+2,oldOffset-1),10));
+					}
+					offset=str.indexOf('&#',offset+1);
+				}
+				return buf+str.substring(oldOffset);
+			};
+			escaper(document.getElementById('escaper-json-literal'),document.getElementById('escaper-json-string'),escapeTableJson);
+			escaper(document.getElementById('escaper-html-literal'),document.getElementById('escaper-html-string'),escapeTableHtml);
+		</script>
+	</body>
+</html>
