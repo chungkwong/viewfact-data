@@ -35,9 +35,6 @@
         计算器
         标准时间
         时区转换
-        历法转换
-            农历
-            黄历
         节气
         计时闹钟
         房贷计算器
@@ -50,7 +47,6 @@
         子女可能的血型
         色盲色弱检测
         经纬度
-        繁简转换
         身份证查询
         电话号归属地
         岁数和生肖
@@ -620,9 +616,6 @@ HDFS Shell Cheat Sheet
 HGNC Gene Names
 HTML Beautifier
 HTML Cheat Sheet
-HTML Entities
-HTML Entities Encode
-HTML Entity Decoder
 HTML Reference
 HTTP Headers
 HTTP Status Codes
@@ -1164,10 +1157,6 @@ TypeScript Cheat Sheet
 UC Browser Cheat Sheet
 UFC Weight Classes Cheat Sheet
 UN
-URL Decode
-URL Encode
-URL Encoding Cheat Sheet
-URL Escape Codes
 US Government Agencies Cheat Sheet
 US State Sales Tax Holidays
 UV Index

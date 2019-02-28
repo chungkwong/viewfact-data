@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head><title>QR code generator</title></head>
+    <body>
+        <textarea id="qrcode-url" rows="3" style="width: 100%">https://www.viewfact.org</textarea>
+        <img alt="QR Code" id="qrcode-image">
+        <script src="js/qrcode.js"></script>
+        <script>
+			var qrcodeUpdate=function(){
+				var qr=qrcode(0,'M');
+				qr.addData(document.getElementById("qrcode-url").value);
+				qr.make();
+				document.getElementById("qrcode-image").src=qr.createDataURL(4);
+			};
+			document.getElementById("qrcode-url").oninput=qrcodeUpdate;
+			qrcodeUpdate();
+        </script>
+    </body>
+</html>
