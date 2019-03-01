@@ -129,42 +129,6 @@
 
 工具
     开发
-        WHOIS查询
-        DNS查询
-        过期域名查询
-        NsLookup查询
-        域名删除时间
-        备案查询
-        删除域名归档
-        备案批量查询
-        IP 查询
-        IP 批量
-        同IP网站查询
-        IP WHOIS查询
-        端口扫描
-        关键词排名
-        关键词挖掘
-        反链查询
-        权重查询
-        收录查询
-        收录率查询
-        关键词优化分析
-        Meta信息挖掘
-        PING检测
-        网站被黑检测
-        网站测速
-        网站历史记录
-        SEO历史记录
-        国内网速对比
-        ALexa历史报告
-        网页检测
-        网站安全检测
-        死链检测
-        网站GZIP压缩
-        网页状态检测
-        关键词密度分析
-        META信息查询
-        查看网页源代码
         中日传统色彩
         传图识色
         WEB安全色
@@ -186,12 +150,8 @@
         Url加/解密
         文字加/解密
         子网掩码
-        Unicode
         Html/UBB
         Unix时间戳
-        NATIVE/ASCII
-        二维码生成
-        UTF-8编码
         HTML/JS转换
         网页截图
         网速测试
@@ -957,7 +917,6 @@ Python Language Cheat Sheet
 Python PEP
 Python Requests
 Python Six Library
-QR Code Generator
 Qt Creator
 Quack &amp; Hack Cheat Sheet
 Quandl Fundamentals
