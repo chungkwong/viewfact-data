@@ -118,9 +118,15 @@
 		"property_title_t": "JSON轉義|JSON escape and unescape",
 		"property_catalog_t": "",
 		"html_s": "<label for='escaper-json-literal'>未轉義</label><textarea id='escaper-json-literal' placeholder='' style='width:100%' rows='3'></textarea>\n<label for='escaper-json-string'>已轉義</label><textarea id='escaper-json-string' placeholder='' style='width:100%' rows='3'></textarea>\n<script src='https://assets.viewfact.org/js/escape.js'></script>\n<script>\n\tvar escapeTableJson=escapeTableFromForward([['\\\\','\\\\\\\\'],['\\r','\\\\r'],['\\n','\\\\n'],['\\t','\\\\t'],['\\b','\\\\b'],['/','\\\\/'],['\\\"','\\\\\\\"']]);\n\tescapeTableJson.backwardPreprocessor=function(str){\n\t\tvar offset=str.indexOf('\\\\u');\n\t\tvar buf='';\n\t\tvar oldOffset=0;\n\t\twhile(offset>=0){\n\t\t\tbuf+=str.substring(oldOffset,offset);\n\t\t\toldOffset=Math.min(offset+6,str.length);\n\t\t\tbuf+=String.fromCharCode(parseInt(str.substring(offset+2,oldOffset),16));\n\t\t\toffset=str.indexOf('\\\\u',offset+1);\n\t\t}\n\t\treturn buf+str.substring(oldOffset);\n\t};\n\tescaper(document.getElementById('escaper-json-literal'),document.getElementById('escaper-json-string'),escapeTableJson);\n</script>"
-	}, {
+	},
+	{
 		"property_title_t": "二維碼生成器|QR Code Generator",
 		"property_catalog_t": "qrcode",
 		"html_s": "<textarea id='qrcode-url' rows='3' style='width: 100%'>https://www.viewfact.org</textarea>\n<img alt='QR Code' id='qrcode-image'>\n<script src='https://assets.viewfact.org/js/qrcode_min.js'></script>\n<script>\n\tvar qrcodeUpdate=function(){\n\t\tvar qr=qrcode(0,'M');\n\t\tqr.addData(document.getElementById('qrcode-url').value);\n\t\tqr.make();\n\t\tdocument.getElementById('qrcode-image').src=qr.createDataURL(4);\n\t};\n\tdocument.getElementById('qrcode-url').oninput=qrcodeUpdate;\n\tqrcodeUpdate();\n</script>"
+	},
+	{
+		"property_title_t": "進制轉換|Base Conversion",
+		"property_catalog_t": "hexadecimal  hex decimal octal binary",
+		"html_s": "<input type='number' value='10' min='2' max='36' step='1' id='number-base-in'><label for='number-base-in'>進制</label><input id='number-string-in' value='10'><br>\n<input type='number' value='16' min='2' max='36' step='1' id='number-base-out'><label for='number-base-out'>進制</label><input id='number-string-out' value='A'>\n<script>\n\tvar numberBaseIn=document.getElementById('number-base-in');\n\tvar numberBaseOut=document.getElementById('number-base-out');\n\tvar numberStringIn=document.getElementById('number-string-in');\n\tvar numberStringOut=document.getElementById('number-string-out');\n\tvar numberBaseConvert=function(numberBaseFrom,numberStringFrom,numberBaseTo){\n\t\treturn parseInt(numberStringFrom,numberBaseFrom).toString(numberBaseTo);\n\t};\n\tvar numberBaseConvertTo=function(numberBaseFrom,numberStringFrom,numberBaseTo,numberStringTo){\n\t\tnumberBaseFrom.oninput=function(){\n\t\t\tnumberStringFrom.value=numberBaseConvert(numberBaseTo.value,numberStringTo.value,numberBaseFrom.value);\n\t\t};\n\t\tnumberStringFrom.oninput=function(){\n\t\t\tnumberStringTo.value=numberBaseConvert(numberBaseFrom.value,numberStringFrom.value,numberBaseTo.value);\n\t\t};\n\t};\n\tnumberBaseConvertTo(numberBaseIn,numberStringIn,numberBaseOut,numberStringOut);\n\tnumberBaseConvertTo(numberBaseOut,numberStringOut,numberBaseIn,numberStringIn);\n</script>"
 	}
 ]

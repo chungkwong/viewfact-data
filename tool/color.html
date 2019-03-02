@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<label for="color-in-r">R</label><input type="number" value="255" min="0" max="255" step="1" id="color-in-r">
+		<label for="color-in-g">G</label><input type="number" value="0" min="0" max="255" step="1" id="color-in-g">
+		<label for="color-in-g">B</label><input type="number" value="0" min="0" max="255" step="1" id="color-in-b">
+		<br>
+		<div id="color-out" style="width:100%"></div>
+		<script>
+			var colorR=document.getElementById("color-in-r");
+			var colorG=document.getElementById("color-in-g");
+			var colorB=document.getElementById("color-in-b");
+			var colorOut=document.getElementById("color-out");
+			var colorUpdateRgb=function(){
+				var r=colorR.value;
+				var g=colorG.value;
+				var b=colorB.value;
+				var color="rgb("+r+","+g+","+b+")";
+				colorOut.style.backgroundColor=color;
+				colorOut.textContent=window.getComputedStyle(colorOut).backgroundColor;
+			};
+			colorR.oninput=colorUpdateRgb;
+			colorG.oninput=colorUpdateRgb;
+			colorB.oninput=colorUpdateRgb;
+			colorUpdateRgb();
+		</script>
+	</body>
+</html>

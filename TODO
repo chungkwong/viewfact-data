@@ -134,16 +134,10 @@
         WEB安全色
         英文大小写
         网页常用色彩
-        繁/简/火星文
-        Http接口测试
-        Html特殊符号
         正则表达式
-        网站安全检测
-        查看网页源代码和头
         在线字符统计
         MD5加密
         Js代码混淆
-        Escape加/解密
         Js/Html格式化
         Url16进制
         Js混淆压缩
@@ -153,14 +147,10 @@
         Html/UBB
         Unix时间戳
         HTML/JS转换
-        网页截图
-        网速测试
         随机密码生成
         密码强度检测
         在线恶意软件扫描
         短网址还原短网址链接还原服务
-        进制转换
-        MAC地址查询
         进程查询
         键盘按键测试
         屏幕检测
@@ -246,7 +236,6 @@ BRT
 Backbone.js Cheat Sheet
 BaconIpsum
 Barrel Http Cheat Sheet
-Base Conversion
 Base64
 Bash Cheat Sheet
 Bash Primary Expressions
@@ -598,7 +587,6 @@ Help Line
 Heroku Cheat Sheet
 Hex Packages
 Hex To Ascii
-Hex To Decimal
 High Valyrian Cheat Sheet
 Hindi Cheat Sheet
 Hindu Gods Cheat Sheet
