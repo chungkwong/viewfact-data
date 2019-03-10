@@ -18,10 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <html>
 	<head>
 		<title>TODO supply a title</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	</head>
 	<body>
+		<h2>Case converter</h2>
 		<label for='string-lowercase'>Lower case</label><textarea rows='2' style='width:100%' id='string-lowercase'>abc</textarea>
 		<label for='string-uppercase'>Upper case</label><textarea rows='2' style='width:100%' id='string-uppercase'>ABC</textarea>
 		<script>
@@ -33,6 +34,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			stringUppercase.oninput=function(){
 				stringLowercase.value=stringUppercase.value.toLocaleLowerCase();
 			};
+		</script>
+		<h2>Password generator</h2>
+		<div style='display:flex'>
+			<label for='password-length'>長度</label><input type='number' min='10' step='1' value='1' id='password-length'>
+			<label for='password-charset'>可用字符</label><input type='text' value='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' id='password-charset' style='flex: 1'>
+		</div>
+		<div><output id='password-generated'></output><input type='button' value='重新生成' id='password-refresh'></div>
+		<script>
+			var passwordLength=document.getElementById('password-length');
+			var passwordCharset=document.getElementById('password-charset');
+			var passwordGenerated=document.getElementById('password-generated');
+			var generatePassword=function(){
+				var buf='';
+				for(var i=0;i<passwordLength.value;i++){
+					buf+=passwordCharset.value.charAt(Math.random()*passwordCharset.value.length);
+				}
+				passwordGenerated.textContent=buf;
+			};
+			passwordLength.oninput=generatePassword;
+			passwordCharset.oninput=generatePassword;
+			document.getElementById('password-refresh').onclick=generatePassword;
+			generatePassword();
 		</script>
 	</body>
 </html>

@@ -138,5 +138,10 @@
 		"property_title_t": "大小寫轉換|Lowercase uppercase converter",
 		"property_catalog_t": "",
 		"html_s": "<label for='string-lowercase'>Lower case</label><textarea rows='2' style='width:100%' id='string-lowercase'>abc</textarea>\n<label for='string-uppercase'>Upper case</label><textarea rows='2' style='width:100%' id='string-uppercase'>ABC</textarea>\n<script>\n\tvar stringLowercase=document.getElementById('string-lowercase');\n\tvar stringUppercase=document.getElementById('string-uppercase');\n\tstringLowercase.oninput=function(){\n\t\tstringUppercase.value=stringLowercase.value.toLocaleUpperCase();\n\t};\n\tstringUppercase.oninput=function(){\n\t\tstringLowercase.value=stringUppercase.value.toLocaleLowerCase();\n\t};\n</script>"
+	},
+	{
+		"property_title_t": "隨機密碼生成器|Random password generator",
+		"property_catalog_t": "",
+		"html_s": "<div style='display:flex'>\n\t<label for='password-length'>長度</label><input type='number' min='10' step='1' value='1' id='password-length'>\n\t<label for='password-charset'>可用字符</label><input type='text' value='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' id='password-charset' style='flex: 1'>\n</div>\n<div><output id='password-generated'></output><input type='button' value='重新生成' id='password-refresh'></div>\n<script>\n\tvar passwordLength=document.getElementById('password-length');\n\tvar passwordCharset=document.getElementById('password-charset');\n\tvar passwordGenerated=document.getElementById('password-generated');\n\tvar generatePassword=function(){\n\t\tvar buf='';\n\t\tfor(var i=0;i<passwordLength.value;i++){\n\t\t\tbuf+=passwordCharset.value.charAt(Math.random()*passwordCharset.value.length);\n\t\t}\n\t\tpasswordGenerated.textContent=buf;\n\t};\n\tpasswordLength.oninput=generatePassword;\n\tpasswordCharset.oninput=generatePassword;\n\tdocument.getElementById('password-refresh').onclick=generatePassword;\n\tgeneratePassword();\n</script>"
 	}
 ]

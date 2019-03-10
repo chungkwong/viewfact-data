@@ -136,22 +136,14 @@
         Js/Html格式化
         Url16进制
         Js混淆压缩
-        Url加/解密
         文字加/解密
         子网掩码
         Html/UBB
         Unix时间戳
         HTML/JS转换
-        随机密码生成
-        密码强度检测
-        在线恶意软件扫描
-        短网址还原短网址链接还原服务
-        进程查询
         键盘按键测试
         屏幕检测
         robots.txt 生成器
-        服务器操作系统识别
-        域名证书生成器
         国家域名缩写
 
 .htaccess Cheat Sheet
@@ -836,8 +828,6 @@ Pandas Cheat Sheet
 Paper
 Parking
 ParseCron
-Passphrase
-Password
 Penn Treebank P.O.S. Tags Cheat Sheet
 People In Space
 PercentError
