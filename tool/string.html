@@ -58,12 +58,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			generatePassword();
 		</script>
 		<h2>Regexp</h2>
-		<label for="regexp-text">Text</label><textarea id="regexp-text"></textarea>
-		<label for="regexp-find">Regular expression</label><input type="text" value="[a-zA-Z]+" id="regexp-find">
-		<label for="regexp-replacement">Replacement</label><input type="text" value="*" id="regexp-replacement">
+		<div style="display: flex"><label for="regexp-text">Text</label><textarea id="regexp-text" style="flex:1"></textarea></div>
+		<div style="display: flex"><label for="regexp-find">Regular expression</label><input type="text" value="[a-zA-Z]+" id="regexp-find" style="flex:1"></div>
+		<div style="display: flex"><label for="regexp-replacement">Replacement</label><input type="text" value="*" id="regexp-replacement" style="flex:1"></div>
 		<input type="checkbox" id="regexp-ignore-case"><label for="regexp-ignore-case">Ignore case</label>
 		<input type="checkbox" id="regexp-multiline"><label for="regexp-multiline">Multiline</label>
-		<input type="checkbox" id="regexp-dotall"><label for="regexp-dotall">dotAll</label>
 		<input type="checkbox" id="regexp-unicode"><label for="regexp-unicode">Unicode</label>
 		<div id="regexp-output"></div>
 		<script>
@@ -72,9 +71,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			var regexpReplacement=document.getElementById("regexp-replacement");
 			var regexpIgnoreCase=document.getElementById("regexp-ignore-case");
 			var regexpMultiline=document.getElementById("regexp-multiline");
-			var regexpDotall=document.getElementById("regexp-dotall");
 			var regexpUnicode=document.getElementById("regexp-unicode");
 			var regexpOutput=document.getElementById("regexp-output");
+			var regexCompileReplacement=function(replacement){
+				var struct=[''];
+				var last=0;
+				var offset;
+				while((offset=replacement.indexOf('$',last))!==-1){
+					struct[struct.length-1]+=replacement.substring(last,offset);
+					if(offset+1<replacement.length){
+						var c=replacement.charAt(++offset);
+						if(c>='0'&&c<='9'){
+							struct.push(c-'0');
+							struct.push('');
+						}else{
+							struct[struct.length-1]+=c;
+						}
+					}
+					last=offset+1;
+				}
+				struct[struct.length-1]+=replacement.substring(last);
+				return struct;
+			};
 			var regexUpdate=function(){
 				var text=regexpText.value;
 				var flags='g';
@@ -84,28 +102,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				if(regexpMultiline.checked){
 					flags+='m';
 				}
-				if(regexpDotall.checked){
-					flags+='s';
-				}
 				if(regexpUnicode.checked){
 					flags+='u';
 				}
-				var regexp=new RegExp(regexpFind.value,flags);
-				var replacement=regexpReplacement.value;
+				try{
+					var regexp=new RegExp(regexpFind.value,flags);
+				}catch(e){
+					regexpFind.setCustomValidity("Syntax error");
+					return;
+				}
+				regexpFind.setCustomValidity("");
+				var replacement=regexCompileReplacement(regexpReplacement.value);
 				var result;
 				var out='';
 				var last=0;
 				while((result=regexp.exec(text))!==null){
+					if(result[0].length===0)
+						++regexp.lastIndex;
 					out+=text.substring(last,result.index);
-					out+=replacement;
+					out+='<em>';
+					for(var i in replacement){
+						var component=replacement[i];
+						if(typeof (component)==='number'){
+							out+=result[component];
+						}else{
+							out+=component;
+						}
+					}
+					out+='</em>';
 					last=result.index+result[0].length;
 				}
 				out+=text.substring(last,text.length);
-				regexpOutput.textContent=out;
+				regexpOutput.innerHTML=out;
 			};
 			regexpText.oninput=regexUpdate;
 			regexpFind.oninput=regexUpdate;
 			regexpReplacement.oninput=regexUpdate;
+			regexpIgnoreCase.onchange=regexUpdate;
+			regexpMultiline.onchange=regexUpdate;
+			regexpUnicode.onchange=regexUpdate;
 		</script>
 	</body>
 </html>
