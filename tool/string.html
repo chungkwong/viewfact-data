@@ -58,21 +58,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			generatePassword();
 		</script>
 		<h2>Regexp</h2>
-		<div style="display: flex"><label for="regexp-text">Text</label><textarea id="regexp-text" style="flex:1"></textarea></div>
-		<div style="display: flex"><label for="regexp-find">Regular expression</label><input type="text" value="[a-zA-Z]+" id="regexp-find" style="flex:1"></div>
-		<div style="display: flex"><label for="regexp-replacement">Replacement</label><input type="text" value="*" id="regexp-replacement" style="flex:1"></div>
-		<input type="checkbox" id="regexp-ignore-case"><label for="regexp-ignore-case">Ignore case</label>
-		<input type="checkbox" id="regexp-multiline"><label for="regexp-multiline">Multiline</label>
-		<input type="checkbox" id="regexp-unicode"><label for="regexp-unicode">Unicode</label>
-		<div id="regexp-output"></div>
+		<div style='display: flex'><label for='regexp-text'>Text</label><textarea id='regexp-text' style='flex:1'></textarea></div>
+		<div style='display: flex'><label for='regexp-find'>Regular expression</label><input type='text' value='[a-zA-Z]+' id='regexp-find' style='flex:1'></div>
+		<div style='display: flex'><label for='regexp-replacement'>Replacement</label><input type='text' value='*' id='regexp-replacement' style='flex:1'></div>
+		<input type='checkbox' id='regexp-ignore-case'><label for='regexp-ignore-case'>Ignore case</label>
+		<input type='checkbox' id='regexp-multiline'><label for='regexp-multiline'>Multiline</label>
+		<input type='checkbox' id='regexp-unicode'><label for='regexp-unicode'>Unicode</label>
+		<div id='regexp-output'></div>
 		<script>
-			var regexpText=document.getElementById("regexp-text");
-			var regexpFind=document.getElementById("regexp-find");
-			var regexpReplacement=document.getElementById("regexp-replacement");
-			var regexpIgnoreCase=document.getElementById("regexp-ignore-case");
-			var regexpMultiline=document.getElementById("regexp-multiline");
-			var regexpUnicode=document.getElementById("regexp-unicode");
-			var regexpOutput=document.getElementById("regexp-output");
+			var regexpText=document.getElementById('regexp-text');
+			var regexpFind=document.getElementById('regexp-find');
+			var regexpReplacement=document.getElementById('regexp-replacement');
+			var regexpIgnoreCase=document.getElementById('regexp-ignore-case');
+			var regexpMultiline=document.getElementById('regexp-multiline');
+			var regexpUnicode=document.getElementById('regexp-unicode');
+			var regexpOutput=document.getElementById('regexp-output');
 			var regexCompileReplacement=function(replacement){
 				var struct=[''];
 				var last=0;
@@ -108,10 +108,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				try{
 					var regexp=new RegExp(regexpFind.value,flags);
 				}catch(e){
-					regexpFind.setCustomValidity("Syntax error");
+					regexpFind.setCustomValidity('Syntax error');
 					return;
 				}
-				regexpFind.setCustomValidity("");
+				regexpFind.setCustomValidity('');
 				var replacement=regexCompileReplacement(regexpReplacement.value);
 				var result;
 				var out='';
