@@ -22,6 +22,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	</head>
 	<body>
+		<h2>Word count</h2>
+		<label for='string-count-string'>Text</label><textarea rows='2' style='width:100%' id='string-count-string'>abc</textarea>
+		<output id='string-count-character'>3</output><label for='string-count-character'> characters/ </label>
+		<output id='string-count-codepoint'>3</output><label for='string-count-codepoint'> codepoints/ </label>
+		<output id='string-count-word'>1</output><label for='string-count-word'> words/ </label>
+		<output id='string-count-line'>1</output><label for='string-count-line'> lines</label>
+		<script>
+			var stringCountString=document.getElementById('string-count-string');
+			var stringCountChar=document.getElementById('string-count-character');
+			var stringCountCode=document.getElementById('string-count-codepoint');
+			var stringCountLine=document.getElementById('string-count-line');
+			var stringCountWord=document.getElementById('string-count-word');
+			var stringUppercase=document.getElementById('string-uppercase');
+			stringCountString.oninput=function(){
+				var text=stringCountString.value;
+				stringCountChar.textContent=text.length;
+				stringCountCode.textContent=Array.from(text).length;
+				stringCountLine.textContent=text.split(/\r|\n|\r\n/).length;
+				var wordCount=0;
+				var wordPattern=/\w+/g;
+				while(wordPattern.exec(text)){
+					++wordCount;
+				}
+				stringCountWord.textContent=wordCount;
+			};
+		</script>
 		<h2>Case converter</h2>
 		<label for='string-lowercase'>Lower case</label><textarea rows='2' style='width:100%' id='string-lowercase'>abc</textarea>
 		<label for='string-uppercase'>Upper case</label><textarea rows='2' style='width:100%' id='string-uppercase'>ABC</textarea>
