@@ -35,9 +35,6 @@
         计算器
         标准时间
         时区转换
-        历法转换
-            农历
-            黄历
         节气
         计时闹钟
         房贷计算器
@@ -50,7 +47,6 @@
         子女可能的血型
         色盲色弱检测
         经纬度
-        繁简转换
         身份证查询
         电话号归属地
         岁数和生肖
@@ -131,88 +127,6 @@
 
 
 
-工具
-    开发
-        WHOIS查询
-        DNS查询
-        过期域名查询
-        NsLookup查询
-        域名删除时间
-        备案查询
-        删除域名归档
-        备案批量查询
-        IP 查询
-        IP 批量
-        同IP网站查询
-        IP WHOIS查询
-        端口扫描
-        关键词排名
-        关键词挖掘
-        反链查询
-        权重查询
-        收录查询
-        收录率查询
-        关键词优化分析
-        Meta信息挖掘
-        PING检测
-        网站被黑检测
-        网站测速
-        网站历史记录
-        SEO历史记录
-        国内网速对比
-        ALexa历史报告
-        网页检测
-        网站安全检测
-        死链检测
-        网站GZIP压缩
-        网页状态检测
-        关键词密度分析
-        META信息查询
-        查看网页源代码
-        中日传统色彩
-        传图识色
-        WEB安全色
-        英文大小写
-        网页常用色彩
-        繁/简/火星文
-        Http接口测试
-        Html特殊符号
-        正则表达式
-        网站安全检测
-        查看网页源代码和头
-        在线字符统计
-        MD5加密
-        Js代码混淆
-        Escape加/解密
-        Js/Html格式化
-        Url16进制
-        Js混淆压缩
-        Url加/解密
-        文字加/解密
-        子网掩码
-        Unicode
-        Html/UBB
-        Unix时间戳
-        NATIVE/ASCII
-        二维码生成
-        UTF-8编码
-        HTML/JS转换
-        网页截图
-        网速测试
-        随机密码生成
-        密码强度检测
-        在线恶意软件扫描
-        短网址还原短网址链接还原服务
-        进制转换
-        MAC地址查询
-        进程查询
-        键盘按键测试
-        屏幕检测
-        robots.txt 生成器
-        服务器操作系统识别
-        域名证书生成器
-        国家域名缩写
-
 .htaccess Cheat Sheet
 2048 (Game)
 24
@@ -290,7 +204,6 @@ BRT
 Backbone.js Cheat Sheet
 BaconIpsum
 Barrel Http Cheat Sheet
-Base Conversion
 Base64
 Bash Cheat Sheet
 Bash Primary Expressions
@@ -405,7 +318,6 @@ Coffee to Water Ratio
 CoffeeScript Cheat Sheet
 Coin
 Color Codes
-Color Picker
 Colorado 14ers Cheat Sheet
 Combination
 Common Escape Sequences Cheat Sheet
@@ -620,9 +532,6 @@ HDFS Shell Cheat Sheet
 HGNC Gene Names
 HTML Beautifier
 HTML Cheat Sheet
-HTML Entities
-HTML Entities Encode
-HTML Entity Decoder
 HTML Reference
 HTTP Headers
 HTTP Status Codes
@@ -645,7 +554,6 @@ Help Line
 Heroku Cheat Sheet
 Hex Packages
 Hex To Ascii
-Hex To Decimal
 High Valyrian Cheat Sheet
 Hindi Cheat Sheet
 Hindu Gods Cheat Sheet
@@ -764,14 +672,12 @@ Lodash Cheat Sheet
 Logarithms Cheat Sheet
 London
 Lorem Ipsum
-Lowercase
 Lua Language Cheat Sheet
 Luhn Algorithm
 Lxde Cheat Sheet
 MAC Address
 MATLAB Cheat Sheet
 MD4
-MD5
 MDN CSS
 MDN JavaScript
 METAR Information
@@ -902,8 +808,6 @@ Pandas Cheat Sheet
 Paper
 Parking
 ParseCron
-Passphrase
-Password
 Penn Treebank P.O.S. Tags Cheat Sheet
 People In Space
 PercentError
@@ -964,7 +868,6 @@ Python Language Cheat Sheet
 Python PEP
 Python Requests
 Python Six Library
-QR Code Generator
 Qt Creator
 Quack &amp; Hack Cheat Sheet
 Quandl Fundamentals
@@ -996,7 +899,6 @@ Red Hat Cheat Sheet
 Reddit Search
 Redis Cheat Sheet
 Regex Cheat Sheet
-Regexp
 Renego Job Search
 Request For Comments (RFC)
 Requests Cheat Sheet
@@ -1028,8 +930,6 @@ SAS Cheat Sheet
 SASS
 SASS Cheat Sheet
 SASS To CSS
-SHA
-SHA-3
 SIP Response Codes Cheat Sheet
 SMS Language Cheat Sheet
 SQL Cheat Sheet
@@ -1164,10 +1064,6 @@ TypeScript Cheat Sheet
 UC Browser Cheat Sheet
 UFC Weight Classes Cheat Sheet
 UN
-URL Decode
-URL Encode
-URL Encoding Cheat Sheet
-URL Escape Codes
 US Government Agencies Cheat Sheet
 US State Sales Tax Holidays
 UV Index
@@ -1184,7 +1080,6 @@ UnixPermissions
 UnixTime
 Untappd
 Upcoming Rocket Launches
-Uppercase
 Uptime
 Urban Dictionary
 Urllib cheat sheet

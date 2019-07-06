@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	</head>
+	<body>
+		<h2>JSON</h2>
+		<style>
+			dl{
+				border-left-style: solid;
+				border-left-width: 1pt;
+				border-left-color: gray;
+			}
+			dd{
+				margin-left:1em;
+			}
+			.jsonBoolean{
+				color:purple;
+			}
+			.jsonNumber{
+				color:green;
+			}
+			.jsonNull{
+				color:red;
+			}
+		</style>
+		<textarea id='json-in' style='width:100%'></textarea>
+		<output id='json-out'></output>
+		<script>
+			var jsonIn=document.getElementById('json-in');
+			var jsonOut=document.getElementById('json-out');
+			var jsonHide=function(child){
+				var hide=document.createElement('span');
+				hide.textContent='▼';
+				hide.onclick=function(){
+					if(hide.textContent==='▼'){
+						child.style.display='none';
+						hide.textContent='▶';
+					}else{
+						child.style.display='block';
+						hide.textContent='▼';
+					}
+				};
+				return hide;
+			};
+			var jsonRender=function(object){
+				if(typeof (object)==='object'&&object!==null){
+					var dl=document.createElement('dl');
+					for(key in object){
+						var dt=document.createElement('dt');
+						dt.textContent=key;
+						dl.appendChild(dt);
+						var dd=document.createElement('dd');
+						var child=jsonRender(object[key]);
+						dt.insertBefore(jsonHide(child),dt.firstChild);
+						dd.appendChild(child);
+						dl.appendChild(dd);
+					}
+					return dl;
+				}else{
+					var span=document.createElement('div');
+					span.textContent=object;
+					if(typeof (object)==='boolean'){
+						span.className='jsonBoolean';
+					}else if(typeof (object)==='number'){
+						span.className='jsonNumber';
+					}else if(object===null){
+						span.className='jsonNull';
+						span.textContent='null';
+					}
+					return span;
+				}
+			};
+			jsonIn.oninput=function(){
+				while(jsonOut.firstElementChild){
+					jsonOut.firstElementChild.remove();
+				}
+				try{
+					jsonIn.setCustomValidity('');
+					jsonOut.appendChild(jsonRender(JSON.parse(jsonIn.value)));
+				}catch(e){
+					jsonIn.setCustomValidity(e);
+				}
+			};
+		</script><h2>XML</h2>
+		<style>
+			dl{
+				border-left-style: solid;
+				border-left-width: 1pt;
+				border-left-color: gray;
+			}
+			dd{
+				margin-left:1em;
+			}
+			.xmlComment{
+				color:gray;
+			}
+		</style>
+		<textarea id='xml-in' style='width:100%'></textarea>
+		<output id='xml-out'></output>
+		<script>
+			var xmlIn=document.getElementById('xml-in');
+			var xmlOut=document.getElementById('xml-out');
+			var xmlHide=function(child){
+				var hide=document.createElement('span');
+				hide.textContent='▼';
+				hide.onclick=function(){
+					if(hide.textContent==='▼'){
+						child.style.display='none';
+						hide.textContent='▶';
+					}else{
+						child.style.display='block';
+						hide.textContent='▼';
+					}
+				};
+				return hide;
+			};
+			var xmlRender=function(object,dl){
+				var dt=document.createElement('dt');
+				dt.textContent=object.tagName;
+				dl.appendChild(dt);
+				var dd=document.createElement('dd');
+				var container=document.createElement('dl');
+				dt.insertBefore(xmlHide(container),dt.firstChild);
+				for(var i=0;i<object.attributes.length;i++){
+					var child=object.attributes[i];
+					var ddt=document.createElement('dt');
+					ddt.textContent=child.name;
+					container.appendChild(ddt);
+					var ddd=document.createElement('dd');
+					ddd.textContent=child.value;
+					container.appendChild(ddd);
+				}
+				for(var i=0;i<object.childNodes.length;i++){
+					var child=object.childNodes[i];
+					if(child.nodeType===Node.ELEMENT_NODE){
+						xmlRender(child,container);
+					}else{
+						container.appendChild(document.createElement('dt'));
+						var ddd=document.createElement('dd');
+						ddd.textContent=child.textContent;
+						if(child.nodeType===Node.COMMENT_NODE){
+							ddd.className='xmlComment';
+						}
+						container.appendChild(ddd);
+					}
+				}
+				dd.appendChild(container);
+				dl.appendChild(dd);
+			};
+			xmlIn.oninput=function(){
+				while(xmlOut.firstElementChild){
+					xmlOut.firstElementChild.remove();
+				}
+				try{
+					xmlIn.setCustomValidity('');
+					var dl=document.createElement('dl');
+					xmlRender(new DOMParser().parseFromString(xmlIn.value,'application/xml').documentElement,dl);
+					xmlOut.appendChild(dl);
+				}catch(e){
+					xmlIn.setCustomValidity(e);
+				}
+			};
+		</script>
+	</body>
+</html>

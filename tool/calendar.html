@@ -184,5 +184,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			document.getElementById('solarYear').value=new Date().getFullYear();
 			solarTerms();
 		</script>
+		<h2>Timestamp</h2>
+		<label for='timestamp-number'>Unix timestamp</label><input type='number' step='1' id='timestamp-number'><br>
+		<label for='timestamp-iso'>ISO 8601</label><input type='text' id='timestamp-iso'>
+		<script>
+			var timeStampNumber=document.getElementById('timestamp-number');
+			var timeStampIso=document.getElementById('timestamp-iso');
+			var timeStampUpdate=function(date){
+				timeStampNumber.value=date.valueOf();
+				timeStampIso.value=date.toISOString();
+			};
+			timeStampNumber.oninput=function(){
+				timeStampUpdate(new Date(parseInt(timeStampNumber.value)));
+			};
+			timeStampIso.oninput=function(){
+				timeStampUpdate(new Date(timeStampIso.value));
+			};
+			timeStampUpdate(new Date());
+		</script>
 	</body>
 </html>

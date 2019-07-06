@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	</head>
+	<body>
+		<input type='number' value='10' min='2' max='36' step='1' id='number-base-in'><label for='number-base-in'>進制</label><input id='number-string-in' value='10'><br>
+		<input type='number' value='16' min='2' max='36' step='1' id='number-base-out'><label for='number-base-out'>進制</label><input id='number-string-out' value='A'>
+		<script>
+			var numberBaseIn=document.getElementById('number-base-in');
+			var numberBaseOut=document.getElementById('number-base-out');
+			var numberStringIn=document.getElementById('number-string-in');
+			var numberStringOut=document.getElementById('number-string-out');
+			var numberBaseConvert=function(numberBaseFrom,numberStringFrom,numberBaseTo){
+				return parseInt(numberStringFrom,numberBaseFrom).toString(numberBaseTo);
+			};
+			var numberBaseConvertTo=function(numberBaseFrom,numberStringFrom,numberBaseTo,numberStringTo){
+				numberBaseFrom.oninput=function(){
+					numberStringFrom.value=numberBaseConvert(numberBaseTo.value,numberStringTo.value,numberBaseFrom.value);
+				};
+				numberStringFrom.oninput=function(){
+					numberStringTo.value=numberBaseConvert(numberBaseFrom.value,numberStringFrom.value,numberBaseTo.value);
+				};
+			};
+			numberBaseConvertTo(numberBaseIn,numberStringIn,numberBaseOut,numberStringOut);
+			numberBaseConvertTo(numberBaseOut,numberStringOut,numberBaseIn,numberStringIn);
+		</script>
+	</body>
+</html>
