@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>ETA</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	</head>
+	<body>
+		<div id='eta'>
+			<select id='etaCompany'>
+				<option value=''></option>
+				<option value='nwfb'>新巴</option>
+				<option value='ctb'>城巴</option>
+			</select>
+			<select id='etaDirection'>
+				<option value='inbound'>去程</option>
+				<option value='outbound'>回程</option>
+			</select>
+			<select id='etaRoute'></select>
+			<select id='etaStop'></select>
+			<ol id='etaTimes'>
+			</ol>
+		</div>
+		<script>
+			var etaCompay=document.getElementById('etaCompany');
+			var etaRoute=document.getElementById('etaRoute');
+			var etaDirection=document.getElementById('etaDirection');
+			var etaStop=document.getElementById('etaStop');
+			var etaTimes=document.getElementById('etaTimes');
+			var routeData=[];
+			etaCompay.onchange=function(){
+				if(etaCompany.value!==''){
+				var request=new XMLHttpRequest();
+				request.onload=function(e){
+					routeData=request.response.data;
+					etaRoute.innerHTML='';
+					for(var i in routeData){
+						var route=routeData[i];
+						var item=document.createElement('option');
+						item.value=i;
+						item.textContent=route.route+': '+route['orig_tc']+' -> '+route['dest_tc'];
+						etaRoute.appendChild(item);
+					}
+				};
+				request.onerror=function(e){
+					
+				};
+				request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route/'+etaCompany.value);
+				request.responseType="json";
+				request.send();
+				}
+				return false;
+			};
+			var fetchStops=function(){
+				var route=routeData[etaRoute.value].route;
+				var direction=etaDirection.value;
+				var request=new XMLHttpRequest();
+				request.onload=function(e){
+					var stopsData=request.response.data;
+					etaStop.innerHTML='';
+					for(var i in stopsData){
+						(function(){
+						var stop=stopsData[i];
+						var item=document.createElement('option');
+						item.value=item['stop'];
+						var req=new XMLHttpRequest();
+						req.onload=function(e){
+							item.textContent=request.response.data['name_tc'];
+						}
+						req.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/stop/'+stop['stop']);
+						req.responseType="json";
+						req.send();
+						
+						etaStop.appendChild(item);
+						})();
+					}
+				};
+				request.onerror=function(e){
+					
+				};
+				request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route-stop/'+etaCompany.value+'/'+route+'/'+direction);
+				request.responseType="json";
+				request.send();
+			};
+			etaDirection.onchange=fetchStops;
+			etaRoute.onchange=fetchStops;
+			etaStop.onchange=function(){
+				var request=new XMLHttpRequest();
+				request.onload=function(e){
+					var etaData=request.response.data;
+					etaTimes.innerHTML='';
+					for(var i in etaData){
+						var eta=etaData[i];
+						var item=document.createElement('li');
+						item.textContent=eta['eta'];
+						etaTimes.appendChild(item);
+					}
+				};
+				request.onerror=function(e){
+					
+				};
+				request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/eta/'+etaCompany.value+'/'+etaStop.value+'/'+routeData[etaRoute.value].route);
+				request.responseType="json";
+				request.send();
+				return false;
+			};
+			
+		</script>
+	</body>
+</html>
