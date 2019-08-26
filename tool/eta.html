@@ -24,16 +24,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	<body>
 		<div id='eta'>
 			<select id='etaCompany'>
-				<option value=''></option>
-				<option value='nwfb'>新巴</option>
-				<option value='ctb'>城巴</option>
-			</select>
+				<option value=''>巴士公司/Bus company</option>
+				<option value='nwfb'>新巴/NWFB</option>
+				<option value='ctb'>城巴/CTB</option>
+			</select><br>
+			<select id='etaRoute'>
+				<option value=''>巴士線/Bus route</option>
+			</select><br>
 			<select id='etaDirection'>
-				<option value='inbound'>去程</option>
-				<option value='outbound'>回程</option>
+				<option value='inbound'>去程/Inbound</option>
+				<option value='outbound'>回程/Outbound</option>
+			</select><br>
+			<select id='etaStop'>
+				<option value=''>巴士站/Bus stop</option>
 			</select>
-			<select id='etaRoute'></select>
-			<select id='etaStop'></select>
 			<ol id='etaTimes'>
 			</ol>
 		</div>
@@ -45,82 +49,86 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			var etaTimes=document.getElementById('etaTimes');
 			var routeData=[];
 			etaCompay.onchange=function(){
-				if(etaCompany.value!==''){
-				var request=new XMLHttpRequest();
-				request.onload=function(e){
-					routeData=request.response.data;
-					etaRoute.innerHTML='';
-					for(var i in routeData){
-						var route=routeData[i];
-						var item=document.createElement('option');
-						item.value=i;
-						item.textContent=route.route+': '+route['orig_tc']+' -> '+route['dest_tc'];
-						etaRoute.appendChild(item);
-					}
-				};
-				request.onerror=function(e){
-					
-				};
-				request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route/'+etaCompany.value);
-				request.responseType="json";
-				request.send();
-				}
-				return false;
+			if(etaCompany.value!==''){
+			var request=new XMLHttpRequest();
+			etaRoute.innerHTML='<option value=\'\'>請稍候/Loading</option>';
+			request.onload=function(e){
+			routeData=request.response.data;
+			etaRoute.innerHTML='<option value=\'\'>巴士線/Bus route</option>';
+			for(var i in routeData){
+			var route=routeData[i];
+			var item=document.createElement('option');
+			item.value=i;
+			item.textContent=route.route+': '+route['orig_tc']+' -> '+route['dest_tc']+' / '+route['orig_en']+' -> '+route['dest_en'];
+			etaRoute.appendChild(item);
+			}
+			};
+			request.onerror=function(e){
+
+			};
+			request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route/'+etaCompany.value);
+			request.responseType="json";
+			request.send();
+			}
+			return false;
 			};
 			var fetchStops=function(){
-				var route=routeData[etaRoute.value].route;
-				var direction=etaDirection.value;
-				var request=new XMLHttpRequest();
-				request.onload=function(e){
-					var stopsData=request.response.data;
-					etaStop.innerHTML='';
-					for(var i in stopsData){
-						(function(){
-						var stop=stopsData[i];
-						var item=document.createElement('option');
-						item.value=item['stop'];
-						var req=new XMLHttpRequest();
-						req.onload=function(e){
-							item.textContent=request.response.data['name_tc'];
-						}
-						req.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/stop/'+stop['stop']);
-						req.responseType="json";
-						req.send();
-						
-						etaStop.appendChild(item);
-						})();
-					}
-				};
-				request.onerror=function(e){
-					
-				};
-				request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route-stop/'+etaCompany.value+'/'+route+'/'+direction);
-				request.responseType="json";
-				request.send();
+			var route=routeData[etaRoute.value].route;
+			var direction=etaDirection.value;
+			var request=new XMLHttpRequest();
+			etaStop.innerHTML='<option value=\'\'>請稍候/Loading</option>';
+			request.onload=function(e){
+			var stopsData=request.response.data;
+			etaStop.innerHTML='<option value=\'\'>巴士站/Bus stop</option>';
+			for(var i in stopsData){
+			(function(){
+			var stop=stopsData[i];
+			var item=document.createElement('option');
+			item.value=stop['stop'];
+			var req=new XMLHttpRequest();
+			req.onload=function(e){
+			item.textContent=req.response.data['name_tc'];
+			}
+			req.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/stop/'+stop['stop']);
+			req.responseType="json";
+			req.send();
+
+			etaStop.appendChild(item);
+			})();
+			}
+			};
+			request.onerror=function(e){
+
+			};
+			request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route-stop/'+etaCompany.value+'/'+route+'/'+direction);
+			request.responseType="json";
+			request.send();
+			return false;
 			};
 			etaDirection.onchange=fetchStops;
 			etaRoute.onchange=fetchStops;
 			etaStop.onchange=function(){
-				var request=new XMLHttpRequest();
-				request.onload=function(e){
-					var etaData=request.response.data;
-					etaTimes.innerHTML='';
-					for(var i in etaData){
-						var eta=etaData[i];
-						var item=document.createElement('li');
-						item.textContent=eta['eta'];
-						etaTimes.appendChild(item);
-					}
-				};
-				request.onerror=function(e){
-					
-				};
-				request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/eta/'+etaCompany.value+'/'+etaStop.value+'/'+routeData[etaRoute.value].route);
-				request.responseType="json";
-				request.send();
-				return false;
+			var request=new XMLHttpRequest();
+			etaTimes.innerHTML='';
+			request.onload=function(e){
+			var etaData=request.response.data;
+			etaTimes.innerHTML='';
+			for(var i in etaData){
+			var eta=etaData[i];
+			var item=document.createElement('li');
+			item.textContent=new Date(eta['eta']).toLocaleString();
+			etaTimes.appendChild(item);
+			}
 			};
-			
+			request.onerror=function(e){
+
+			};
+			request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/eta/'+etaCompany.value+'/'+etaStop.value+'/'+routeData[etaRoute.value].route);
+			request.responseType="json";
+			request.send();
+			return false;
+			};
+
 		</script>
 	</body>
 </html>
