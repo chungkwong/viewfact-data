@@ -22,113 +22,125 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	</head>
 	<body>
-		<div id='eta'>
-			<select id='etaCompany'>
+		<div id='etaCtb'>
+			<select id='etaCtbCompany'>
 				<option value=''>巴士公司/Bus company</option>
 				<option value='nwfb'>新巴/NWFB</option>
 				<option value='ctb'>城巴/CTB</option>
 			</select><br>
-			<select id='etaRoute'>
+			<select id='etaCtbRoute'>
 				<option value=''>巴士線/Bus route</option>
 			</select><br>
-			<select id='etaDirection'>
+			<select id='etaCtbDirection'>
 				<option value='inbound'>去程/Inbound</option>
 				<option value='outbound'>回程/Outbound</option>
 			</select><br>
-			<select id='etaStop'>
+			<select id='etaCtbStop'>
 				<option value=''>巴士站/Bus stop</option>
-			</select>
-			<ol id='etaTimes'>
+			</select><span id='etaCtbMap'></span>
+			<ol id='etaCtbTimes'>
 			</ol>
 		</div>
 		<script>
-			var etaCompay=document.getElementById('etaCompany');
-			var etaRoute=document.getElementById('etaRoute');
-			var etaDirection=document.getElementById('etaDirection');
-			var etaStop=document.getElementById('etaStop');
-			var etaTimes=document.getElementById('etaTimes');
-			var routeData=[];
-			etaCompay.onchange=function(){
-			if(etaCompany.value!==''){
+			var etaCtbCompay=document.getElementById('etaCtbCompany');
+			var etaCtbRoute=document.getElementById('etaCtbRoute');
+			var etaCtbDirection=document.getElementById('etaCtbDirection');
+			var etaCtbStop=document.getElementById('etaCtbStop');
+			var etaCtbMap=document.getElementById('etaCtbMap');
+			var etaCtbTimes=document.getElementById('etaCtbTimes');
+			var etaCtbRouteData=[];
+			var etaCtbStopData=[];
+			etaCtbCompay.onchange=function(){
+			if(etaCtbCompany.value!==''){
 			var request=new XMLHttpRequest();
-			etaRoute.innerHTML='<option value=\'\'>請稍候/Loading</option>';
+			etaCtbRoute.innerHTML='<option value=\'\'>請稍候/Loading</option>';
 			request.onload=function(e){
-			routeData=request.response.data;
-			etaRoute.innerHTML='<option value=\'\'>巴士線/Bus route</option>';
-			for(var i in routeData){
-			var route=routeData[i];
+			etaCtbRouteData=request.response.data;
+			etaCtbRoute.innerHTML='<option value=\'\'>巴士線/Bus route</option>';
+			for(var i in etaCtbRouteData){
+			var route=etaCtbRouteData[i];
 			var item=document.createElement('option');
 			item.value=i;
 			item.textContent=route.route+': '+route['orig_tc']+' -> '+route['dest_tc']+' / '+route['orig_en']+' -> '+route['dest_en'];
-			etaRoute.appendChild(item);
+			etaCtbRoute.appendChild(item);
 			}
 			};
 			request.onerror=function(e){
 
 			};
-			request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route/'+etaCompany.value);
+			request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route/'+etaCtbCompany.value);
 			request.responseType="json";
 			request.send();
 			}
 			return false;
 			};
 			var fetchStops=function(){
-			var route=routeData[etaRoute.value].route;
-			var direction=etaDirection.value;
+			var route=etaCtbRouteData[etaCtbRoute.value].route;
+			var direction=etaCtbDirection.value;
 			var request=new XMLHttpRequest();
-			etaStop.innerHTML='<option value=\'\'>請稍候/Loading</option>';
+			etaCtbStop.innerHTML='<option value=\'\'>請稍候/Loading</option>';
 			request.onload=function(e){
-			var stopsData=request.response.data;
-			etaStop.innerHTML='<option value=\'\'>巴士站/Bus stop</option>';
-			for(var i in stopsData){
+			etaCtbStopData=request.response.data;
+			etaCtbStop.innerHTML='<option value=\'\'>巴士站/Bus stop</option>';
+			for(var i in etaCtbStopData){
 			(function(){
-			var stop=stopsData[i];
+			var stop=etaCtbStopData[i];
 			var item=document.createElement('option');
-			item.value=stop['stop'];
+			item.value=i;
 			var req=new XMLHttpRequest();
 			req.onload=function(e){
 			item.textContent=req.response.data['name_tc'];
+			stop['lat']=req.response.data['lat'];
+			stop['long']=req.response.data['long'];
 			}
 			req.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/stop/'+stop['stop']);
 			req.responseType="json";
 			req.send();
 
-			etaStop.appendChild(item);
+			etaCtbStop.appendChild(item);
 			})();
 			}
 			};
 			request.onerror=function(e){
 
 			};
-			request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route-stop/'+etaCompany.value+'/'+route+'/'+direction);
+			request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route-stop/'+etaCtbCompany.value+'/'+route+'/'+direction);
 			request.responseType="json";
 			request.send();
 			return false;
 			};
-			etaDirection.onchange=fetchStops;
-			etaRoute.onchange=fetchStops;
-			etaStop.onchange=function(){
+			etaCtbDirection.onchange=fetchStops;
+			etaCtbRoute.onchange=fetchStops;
+			etaCtbStop.onchange=function(){
 			var request=new XMLHttpRequest();
-			etaTimes.innerHTML='';
+			var stop=etaCtbStopData[etaCtbStop.value];
+			etaCtbTimes.innerHTML='';
 			request.onload=function(e){
-			var etaData=request.response.data;
-			etaTimes.innerHTML='';
-			for(var i in etaData){
-			var eta=etaData[i];
+			var etaCtbData=request.response.data;
+			etaCtbTimes.innerHTML='';
+			for(var i in etaCtbData){
+			var etaCtb=etaCtbData[i];
 			var item=document.createElement('li');
-			item.textContent=new Date(eta['eta']).toLocaleString();
-			etaTimes.appendChild(item);
+			item.textContent=new Date(etaCtb['eta']).toLocaleString();
+			etaCtbTimes.appendChild(item);
 			}
 			};
 			request.onerror=function(e){
 
 			};
-			request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/eta/'+etaCompany.value+'/'+etaStop.value+'/'+routeData[etaRoute.value].route);
+			request.open("GET",'https://rt.data.gov.hk/v1/transport/citybus-nwfb/eta/'+etaCtbCompany.value+'/'+stop['stop']+'/'+etaCtbRouteData[etaCtbRoute.value].route);
 			request.responseType="json";
 			request.send();
+			var mapLink=document.createElement('a');
+			var lat=stop['lat'];
+			var lng=stop['long'];
+			mapLink.href='https://www.openstreetmap.org/?mlat='+lat+'&mlon='+lng+'#map=17/'+lat+'/'+lng;
+			mapLink.target='_blank';
+			mapLink.textContent='地圖/Map'
+			etaCtbMap.innerHTML='';
+			etaCtbMap.appendChild(mapLink);
 			return false;
 			};
-
 		</script>
 	</body>
 </html>
