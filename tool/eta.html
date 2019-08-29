@@ -142,5 +142,103 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			return false;
 			};
 		</script>
+		
+		<div id='etaNlb'>
+			<select id='etaNlbRoute'>
+				<option value=''>巴士線/Bus route</option>
+			</select><br>
+			<select id='etaNlbStop'>
+				<option value=''>巴士站/Bus stop</option>
+			</select><span id='etaNlbMap'></span>
+			<ol id='etaNlbTimes'>
+			</ol>
+			<span id=etaNlbMsg></span>
+		</div>
+		<script>
+			(function(){
+			var etaNlbRoute=document.getElementById('etaNlbRoute');
+			var etaNlbStop=document.getElementById('etaNlbStop');
+			var etaNlbMap=document.getElementById('etaNlbMap');
+			var etaNlbTimes=document.getElementById('etaNlbTimes');
+			var etaNlbMsg=document.getElementById('etaNlbMsg');
+			var etaNlbRouteData=[];
+			var etaNlbStopData=[];
+			var request=new XMLHttpRequest();
+			etaNlbRoute.innerHTML='<option value=\'\'>請稍候/Loading</option>';
+			request.onload=function(e){
+			etaNlbRouteData=request.response.routes;
+			etaNlbRoute.innerHTML='<option value=\'\'>巴士線/Bus route</option>';
+			for(var i in etaNlbRouteData){
+			var route=etaNlbRouteData[i];
+			var item=document.createElement('option');
+			item.value=i;
+			item.textContent=route['routeNo']+': '+route['routeName_c']+' / '+route['routeName_e'];
+			etaNlbRoute.appendChild(item);
+			}
+			};
+			request.onerror=function(e){
+
+			};
+			request.open("POST",'https://rt.data.gov.hk/v1/transport/nlb/route.php?action=list');
+			request.responseType="json";
+			request.send();
+			etaNlbRoute.onchange=function(){
+			var route=etaNlbRouteData[etaNlbRoute.value].routeNo;
+			var request=new XMLHttpRequest();
+			etaNlbStop.innerHTML='<option value=\'\'>請稍候/Loading</option>';
+			request.onload=function(e){
+			etaNlbStopData=request.response.stops;
+			etaNlbStop.innerHTML='<option value=\'\'>巴士站/Bus stop</option>';
+			for(var i in etaNlbStopData){
+			(function(){
+			var stop=etaNlbStopData[i];
+			var item=document.createElement('option');
+			item.value=i;
+			item.textContent=stop['stopName_c']+'/'+stop['stopName_e']+' $'+stop['fare']+'/ $'+stop['fareHoliday'];
+			etaNlbStop.appendChild(item);
+			})();
+			}
+			};
+			request.onerror=function(e){
+
+			};
+			request.open("POST",'https://rt.data.gov.hk/v1/transport/nlb/stop.php?action=list');
+			request.responseType="json";
+			request.send('{"routeId":"'+etaNlbRouteData[etaNlbRoute.value].routeId+'"}');
+			return false;
+			};
+			etaNlbStop.onchange=function(){
+			var request=new XMLHttpRequest();
+			var stop=etaNlbStopData[etaNlbStop.value];
+			etaNlbTimes.innerHTML='';
+			request.onload=function(e){
+			etaNlbMsg.textContent=request.response.message;
+			var etaNlbData=request.response.estimatedArrivals;
+			etaNlbTimes.innerHTML='';
+			for(var i in etaNlbData){
+			var etaNlb=etaNlbData[i];
+			var item=document.createElement('li');
+			item.textContent=etaNlb['estimatedArrivalTime'];
+			etaNlbTimes.appendChild(item);
+			}
+			};
+			request.onerror=function(e){
+
+			};
+			request.open("POST",'https://rt.data.gov.hk/v1/transport/nlb/stop.php?action=estimatedArrivals');
+			request.responseType="json";
+			request.send('{"routeId":"'+etaNlbRouteData[etaNlbRoute.value].routeId+'","stopId":"'+etaNlbStopData[etaNlbStop.value].stopId+'","language":"zh"}');
+			var mapLink=document.createElement('a');
+			var lat=stop['latitude'];
+			var lng=stop['longitude'];
+			mapLink.href='https://www.openstreetmap.org/?mlat='+lat+'&mlon='+lng+'#map=17/'+lat+'/'+lng;
+			mapLink.target='_blank';
+			mapLink.textContent='地圖/Map'
+			etaNlbMap.innerHTML='';
+			etaNlbMap.appendChild(mapLink);
+			return false;
+			};
+			})();
+		</script>
 	</body>
 </html>
