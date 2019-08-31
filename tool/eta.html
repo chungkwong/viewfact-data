@@ -90,7 +90,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								item.value = i;
 								var req = new XMLHttpRequest();
 								req.onload = function (e) {
-									item.textContent = req.response.data['name_tc'];
+									item.textContent = req.response.data['name_tc'] + '/' + req.response.data['name_en'];
 									stop['lat'] = req.response.data['lat'];
 									stop['long'] = req.response.data['long'];
 								}
@@ -244,5 +244,104 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				};
 			})();
 		</script>
+
+		<div id='etaMtr'>
+			<select id='etaMtrRoute'>
+				<option value=''>港鐵綫/MTR route</option>
+				<option value='WRL'>西鐵綫/West rail</option>
+				<option value='TKL'>將軍澳綫/Tseung Kwan O line</option>
+				<option value='TCL'>东涌綫/Tung Chung line</option>
+				<option value='AEL'>機場快綫/Airport express</option>
+			</select><br>
+			<select id='etaMtrStop'>
+				<option value=''>港鐵站/MTR stop</option>
+			</select>
+			<ol id='etaMtrUp'>
+			</ol>
+			<ol id='etaMtrDown'>
+			</ol>
+		</div>
+		<script>
+			(function () {
+				var etaMtrRoute = document.getElementById('etaMtrRoute');
+				var etaMtrStop = document.getElementById('etaMtrStop');
+				var etaMtrUp = document.getElementById('etaMtrUp');
+				var etaMtrDown = document.getElementById('etaMtrDown');
+				var etaMtrStopData = new Object();
+				etaMtrStopData.WRL = ['HUH', 'ETS', 'AUS', 'NAC', 'MEF', 'TWW', 'KSR', 'YUL', 'LOP', 'TIS', 'SIH', 'TUM'];
+				etaMtrStopData.TKL = ['NOP', 'QUB', 'YAT', 'TIK', 'TKO', 'LHP', 'HAH', 'POA'];
+				etaMtrStopData.TCL = ['HOK', 'KOW', 'OLY', 'NAC', 'LAK', 'TSY', 'SUN', 'TUC'];
+				etaMtrStopData.AEL = ['HOK', 'KOW', 'TSY', 'AIR', 'AWE'];
+				var etaMtrName = new Object();
+				etaMtrName.HOK = '香港/Hong Kong';
+				etaMtrName.KOW = '九龍/Kowloon';
+				etaMtrName.OLY = '奧運/Olympic';
+				etaMtrName.NAC = '南昌/Nam Cheong';
+				etaMtrName.LAK = '荔景/Lai King';
+				etaMtrName.TSY = '青衣/Tsing Yi';
+				etaMtrName.SUN = '欣澳/Sunny Bay';
+				etaMtrName.TUC = '東涌/Tung Chung';
+				etaMtrName.AIR = '機場/Airport';
+				etaMtrName.AWE = '博覽館/Asia World Expo';
+				etaMtrName.HUH = '紅磡/Hung Hom';
+				etaMtrName.ETS = '尖東/East Tsim Sha Tsui';
+				etaMtrName.AUS = '柯士甸/Austin';
+				etaMtrName.MEF = '美孚/Mei Foo';
+				etaMtrName.TWW = '荃灣西/Tsuen Wan West';
+				etaMtrName.KSR = '錦上路/Kam Sheung Road';
+				etaMtrName.YUL = '元朗/Yuen Long';
+				etaMtrName.LOP = '朗屏/Long Ping';
+				etaMtrName.TIS = '天水圍/Tin Shui Wai';
+				etaMtrName.SIH = '兆康/Siu Hong';
+				etaMtrName.TUM = '屯門/Tuen Mun';
+				etaMtrName.NOP = '北角/North point';
+				etaMtrName.QUB = '鰂魚涌/Quarry Bay';
+				etaMtrName.YAT = '油塘/Yau Tong';
+				etaMtrName.TIK = '調景嶺/Tiu Keng Leng';
+				etaMtrName.TKO = '將軍澳/Tseung Kwan O';
+				etaMtrName.LHP = '康城/LOHAS Park';
+				etaMtrName.HAH = '坑口/Hang Hau';
+				etaMtrName.POA = '寶琳/Po Lam';
+				etaMtrRoute.onchange = function () {
+					etaMtrStop.innerHTML = '<option value=\'\'>港鐵站/MTR stop</option>';
+					var stops = etaMtrStopData[etaMtrRoute.value];
+					for (var i in stops) {
+						var item = document.createElement('option');
+						item.value = stops[i];
+						item.textContent = etaMtrName[stops[i]];
+						etaMtrStop.appendChild(item);
+					}
+				};
+				etaMtrStop.onchange = function () {
+					var request = new XMLHttpRequest();
+					var route = etaMtrRoute.value;
+					var stop = etaMtrStop.value;
+					etaMtrUp.innerHTML = '';
+					etaMtrDown.innerHTML = '';
+					var showTime = function (dir, widget) {
+						var etaMtrData = request.response.data[route + '-' + stop][dir];
+						widget.innerHTML = '';
+						for (var i in etaMtrData) {
+							var etaMtr = etaMtrData[i];
+							var item = document.createElement('li');
+							item.textContent = etaMtr['time'] + ' 月台' + etaMtr['plat'] + ' 往 ' + etaMtrName[etaMtr['dest']];
+							widget.appendChild(item);
+						}
+					};
+					request.onload = function (e) {
+						showTime('UP', etaMtrUp);
+						showTime('DOWN', etaMtrDown);
+					};
+					request.onerror = function (e) {
+						etaMtrUp.innerHTML = '<li>没有資料/No data</li>';
+					};
+					request.open("GET", 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=' + route + '&sta=' + stop + '&lang=TC');
+					request.responseType = "json";
+					request.send();
+					return false;
+				};
+			})();
+		</script>
+
 	</body>
 </html>
