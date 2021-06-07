@@ -23,6 +23,7 @@ import java.nio.file.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
+import java.util.logging.*;
 import java.util.stream.*;
 /**
  * curl -H 'Accept: text/tab-separated-values'
@@ -37,7 +38,7 @@ public class WikidataExtracter{
 	private static final int LIMIT=50;
 	private static final String PREFIX="https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en|zh&props=aliases|labels|descriptions&ids=";
 	public static void main(String[] args) throws IOException{
-		//fetchLabels();
+//		fetchLabels();
 		joinLabels();
 	}
 	private static void joinLabels() throws IOException{
@@ -51,10 +52,12 @@ public class WikidataExtracter{
 			while((urlLine=urlIn.readLine())!=null&&labelLine!=null){
 				String entityCode=urlLine.substring(0,urlLine.indexOf('\t'));
 				if(labelLine.substring(0,labelLine.indexOf('\t')).equals(entityCode)){
-					out.newLine();
-					out.write(entityCode);
-					out.write(labelLine.substring(labelLine.indexOf('\t')));
-					out.write(urlLine.substring(urlLine.indexOf('\t')));
+					if(labelLine.substring(labelLine.indexOf('\t')).length()>6){
+						out.newLine();
+						out.write(entityCode);
+						out.write(labelLine.substring(labelLine.indexOf('\t')));
+						out.write(urlLine.substring(urlLine.indexOf('\t')));
+					}
 					labelLine=labelIn.readLine();
 				}
 			}
@@ -62,7 +65,7 @@ public class WikidataExtracter{
 	}
 	private static void fetchLabels() throws IOException{
 		try(BufferedReader in=Files.newBufferedReader(new File("cache/wikidata/wikisite_code.csv").toPath(),StandardCharsets.UTF_8);
-				BufferedWriter out=Files.newBufferedWriter(new File("cache/wikidata/name_code.csv").toPath(),StandardCharsets.UTF_8)){
+				BufferedWriter out=Files.newBufferedWriter(new File("cache/wikidata/name_code2.csv").toPath(),StandardCharsets.UTF_8)){
 			String line=in.readLine();
 			out.write("code\tlabel_en\tlabel_zh\talias_en\talias_zh\tdescription_en\tdescription_zh");
 			StringBuilder buf=new StringBuilder(PREFIX);
@@ -70,6 +73,9 @@ public class WikidataExtracter{
 			int count=0;
 			while((line=in.readLine())!=null){
 				String code=line.substring(0,line.indexOf('\t'));
+				/*if(count<1034524){
+					++count;
+				}else */
 				if(++i==LIMIT){
 					buf.append(code);
 					handle(buf.toString(),out);
@@ -86,26 +92,42 @@ public class WikidataExtracter{
 		}
 	}
 	private static void handle(String url,BufferedWriter out) throws IOException{
-		HttpURLConnection connection=(HttpURLConnection)new URL(url).openConnection();
-		connection.connect();
-		int code=connection.getResponseCode();
-		while(connection.getHeaderField("Retry-After")!=null){
-			connection.disconnect();
-			String time=connection.getHeaderField("Retry-After");
+		Map<String,Map<String,Object>> map;
+		while(true){
 			try{
-				try{
-					Thread.sleep(Integer.parseInt(time)*1000l);
-				}catch(NumberFormatException e){
-					Thread.sleep(Instant.from(DateTimeFormatter.RFC_1123_DATE_TIME.parse(time)).toEpochMilli()-System.currentTimeMillis());
+				HttpURLConnection connection=(HttpURLConnection)new URL(url).openConnection();
+				connection.setConnectTimeout(60000);
+				connection.connect();
+				int code=connection.getResponseCode();
+				while(connection.getHeaderField("Retry-After")!=null){
+					connection.disconnect();
+					String time=connection.getHeaderField("Retry-After");
+					System.err.println(time);
+					try{
+						try{
+							Thread.sleep(Integer.parseInt(time)*1000l);
+						}catch(NumberFormatException e){
+							Thread.sleep(Instant.from(DateTimeFormatter.RFC_1123_DATE_TIME.parse(time)).toEpochMilli()-System.currentTimeMillis());
+						}
+					}catch(InterruptedException ex){
+						ex.printStackTrace();
+					}
+					connection=(HttpURLConnection)new URL(url).openConnection();
+					connection.setConnectTimeout(60000);
+					connection.connect();
+					code=connection.getResponseCode();
 				}
-			}catch(InterruptedException ex){
-				ex.printStackTrace();
+				map=(Map<String,Map<String,Object>>)new ObjectMapper().readValue(connection.getInputStream(),Map.class).get("entities");
+				break;
+			}catch(Exception ex){
+				Logger.getLogger(WikidataExtracter.class.getName()).log(Level.SEVERE,null,ex);
+				try{
+					Thread.sleep(60000);
+				}catch(InterruptedException ex1){
+					Logger.getLogger(WikidataExtracter.class.getName()).log(Level.SEVERE,null,ex1);
+				}
 			}
-			connection=(HttpURLConnection)new URL(url).openConnection();
-			connection.connect();
-			code=connection.getResponseCode();
 		}
-		Map<String,Map<String,Object>> map=(Map<String,Map<String,Object>>)new ObjectMapper().readValue(connection.getInputStream(),Map.class).get("entities");
 		for(String entityCode:url.substring(PREFIX.length()).split("\\|")){
 			Map<String,Map<String,Object>> entity=(Map<String,Map<String,Object>>)(Map)map.get(entityCode);
 			if(entity!=null){

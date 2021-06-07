@@ -1156,3 +1156,32 @@ vcgencmd Cheat Sheet
 wikiHow
 xmonad Cheat Sheet
 μTorrent Cheat Sheet
+
+UPDATE DATASETS SET ACTION='[]' WHERE ACTION IS NULL AND TITLE LIKE '%簡體%' AND TITLE NOT LIKE '%繁體%'
+
+SELECT ID,TITLE,AUTHOR,URL FROM DATASETS WHERE ACTION IS NULL AND TITLE LIKE '%簡體%' AND TITLE NOT LIKE '%繁體%'
+
+SELECT ID,TITLE,AUTHOR,URL FROM DATASETS WHERE ACTION IS NULL AND URL LIKE '%.csv'
+
+UPDATE DATASETS SET ACTION='[{"step":"from-url"},{"step":"to-text"},{"step":"parse-csv"},{"step":"to-solr"},{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author","property_date_dt":"last_updated","property_columns_t":"columns"}},{"step":"to-solr"}]' WHERE ACTION IS NULL AND URL LIKE '%.csv' AND TITLE LIKE '%英文%' AND TITLE NOT LIKE '%中文%'
+
+UPDATE DATASETS SET ACTION='[{"step":"from-url"},{"step":"to-text","encoding":"UTF-16"},{"step":"parse-csv"},{"step":"to-solr"},{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author","property_date_dt":"last_updated","property_columns_t":"columns"}},{"step":"to-solr"}]' WHERE ACTION IS NULL AND URL LIKE '%.csv' AND (AUTHOR='創新科技署' OR AUTHOR='食物及衞生局') AND TITLE NOT LIKE '創新及科技基金%'
+
+UPDATE DATASETS SET ACTION='[{"step":"from-url"},{"step":"to-text","encoding":"Big5-HKSCS"},{"step":"parse-csv"},{"step":"to-solr"},{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author","property_date_dt":"last_updated","property_columns_t":"columns"}},{"step":"to-solr"}]' WHERE ACTION IS NULL AND URL LIKE '%.csv' AND (AUTHOR='漁農自然護理署' OR AUTHOR='土木工程拓展署' OR AUTHOR='工業貿易署' OR AUTHOR='康樂及文化事務署' OR AUTHOR='地政總署') AND TITLE NOT LIKE '香港印刷書刊目錄%'
+
+UPDATE DATASETS SET ACTION='[{"step":"from-url"},{"step":"to-text"},{"step":"parse-csv"},{"step":"to-solr"},{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author","property_date_dt":"last_updated","property_columns_t":"columns"}},{"step":"to-solr"}]' WHERE ACTION IS NULL AND URL LIKE '%.csv' AND (AUTHOR='保險業監管局' OR AUTHOR='在職家庭及學生資助事務處' OR AUTHOR='水務署' OR AUTHOR='政府統計處' OR AUTHOR='公司註冊處' OR AUTHOR='香港懲教署' OR AUTHOR='香港海關' OR AUTHOR='環境保護署' OR AUTHOR='稅務局' OR AUTHOR='通訊事務管理局辦公室' OR AUTHOR='電影、報刊及物品管理辦事處' OR AUTHOR='破產管理署' OR AUTHOR='差餉物業估價署' OR AUTHOR='運輸署' OR AUTHOR='' OR AUTHOR='選舉事務處' OR AUTHOR='香港生產力促進局' OR AUTHOR='廉政公署' OR AUTHOR='機電工程署' OR AUTHOR='建築署' OR AUTHOR='政府化驗所' OR AUTHOR='教育局')
+
+UPDATE DATASETS SET ACTION='[{"step":"from-url"},{"step":"to-text"},{"step":"parse-csv"},{"step":"to-solr"},{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author","property_date_dt":"last_updated","property_columns_t":"columns"}},{"step":"to-solr"}]' WHERE ACTION IS NULL AND AUTHOR='政府統計處' AND URL LIKE '%showtablecsv%'
+
+UPDATE DATASETS SET ACTION='[{"step":"from-url"},{"step":"to-text"},{"step":"parse-csv"},{"step":"to-solr"},{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author","property_date_dt":"last_updated","property_columns_t":"columns"}},{"step":"to-solr"}]' WHERE ACTION IS NULL AND URL LIKE '%.csv'
+
+UPDATE DATASETS SET ACTION='[{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author"}},{"step":"to-solr"}]' WHERE ACTION IS NULL AND AUTHOR='選舉事務處' AND URL LIKE '%xls%'
+
+
+UPDATE DATASETS SET ACTION='[{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author","property_image_s":"url"}},{"step":"to-solr"}]' WHERE ACTION IS NULL AND URL LIKE '%.JPG'
+
+UPDATE DATASETS SET ACTION='[{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author"}},{"step":"to-solr"}]' WHERE ACTION IS NULL AND URL LIKE '%xlsx&%'
+
+UPDATE DATASETS SET ACTION='[{"step":"meta","mapping":{"id":"url","parent_s":"parent","property_title_t":"title","property_author_t":"author"}},{"step":"to-solr","extract":true}]' WHERE ACTION IS NULL AND URL LIKE '%zip&%'
+
+UPDATE DATASETS SET FREQUENCY=-2 WHERE FREQUENCY=-1 AND ID >=49373 AND TITLE LIKE '%201%年%'
