@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2019 Chan Chung Kwong
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+	<head>
+		<title>ETA</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	</head>
+	<body>
+		<div id='etaCtb'>
+			<select id='etaCtbCompany'>
+				<option value=''>巴士公司/Bus company</option>
+				<option value='nwfb'>新巴/NWFB</option>
+				<option value='ctb'>城巴/CTB</option>
+			</select><br>
+			<select id='etaCtbRoute'>
+				<option value=''>巴士線/Bus route</option>
+			</select><br>
+			<select id='etaCtbDirection'>
+				<option value='outbound'>去程/Outbound</option>
+				<option value='inbound'>回程/Inbound</option>
+			</select><br>
+			<select id='etaCtbStop'>
+				<option value=''>巴士站/Bus stop</option>
+			</select><span id='etaCtbMap'></span>
+			<ol id='etaCtbTimes'>
+			</ol>
+		</div>
+		<script>
+			(function () {
+				var etaCtbCompay = document.getElementById('etaCtbCompany');
+				var etaCtbRoute = document.getElementById('etaCtbRoute');
+				var etaCtbDirection = document.getElementById('etaCtbDirection');
+				var etaCtbStop = document.getElementById('etaCtbStop');
+				var etaCtbMap = document.getElementById('etaCtbMap');
+				var etaCtbTimes = document.getElementById('etaCtbTimes');
+				var etaCtbRouteData = [];
+				var etaCtbStopData = [];
+				etaCtbCompay.onchange = function () {
+					if (etaCtbCompany.value !== '') {
+						var request = new XMLHttpRequest();
+						etaCtbRoute.innerHTML = '<option value=\'\'>請稍候/Loading</option>';
+						request.onload = function (e) {
+							etaCtbRouteData = request.response.data;
+							etaCtbRoute.innerHTML = '<option value=\'\'>巴士線/Bus route</option>';
+							for (var i in etaCtbRouteData) {
+								var route = etaCtbRouteData[i];
+								var item = document.createElement('option');
+								item.value = i;
+								item.textContent = route.route + ': ' + route['orig_tc'] + ' -> ' + route['dest_tc'] + ' / ' + route['orig_en'] + ' -> ' + route['dest_en'];
+								etaCtbRoute.appendChild(item);
+							}
+						};
+						request.onerror = function (e) {
+
+						};
+						request.open("GET", 'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route/' + etaCtbCompany.value);
+						request.responseType = "json";
+						request.send();
+					}
+					return false;
+				};
+				var fetchStops = function () {
+					var route = etaCtbRouteData[etaCtbRoute.value].route;
+					var direction = etaCtbDirection.value;
+					var request = new XMLHttpRequest();
+					etaCtbStop.innerHTML = '<option value=\'\'>請稍候/Loading</option>';
+					request.onload = function (e) {
+						etaCtbStopData = request.response.data;
+						etaCtbStop.innerHTML = '<option value=\'\'>巴士站/Bus stop</option>';
+						for (var i in etaCtbStopData) {
+							(function () {
+								var stop = etaCtbStopData[i];
+								var item = document.createElement('option');
+								item.value = i;
+								var req = new XMLHttpRequest();
+								req.onload = function (e) {
+									item.textContent = req.response.data['name_tc'] + '/' + req.response.data['name_en'];
+									stop['lat'] = req.response.data['lat'];
+									stop['long'] = req.response.data['long'];
+								}
+								req.open("GET", 'https://rt.data.gov.hk/v1/transport/citybus-nwfb/stop/' + stop['stop']);
+								req.responseType = "json";
+								req.send();
+
+								etaCtbStop.appendChild(item);
+							})();
+						}
+					};
+					request.onerror = function (e) {
+
+					};
+					request.open("GET", 'https://rt.data.gov.hk/v1/transport/citybus-nwfb/route-stop/' + etaCtbCompany.value + '/' + route + '/' + direction);
+					request.responseType = "json";
+					request.send();
+					return false;
+				};
+				etaCtbDirection.onchange = fetchStops;
+				etaCtbRoute.onchange = fetchStops;
+				etaCtbStop.onchange = function () {
+					var request = new XMLHttpRequest();
+					var stop = etaCtbStopData[etaCtbStop.value];
+					etaCtbTimes.innerHTML = '';
+					request.onload = function (e) {
+						var etaCtbData = request.response.data;
+						etaCtbTimes.innerHTML = '';
+						for (var i in etaCtbData) {
+							var etaCtb = etaCtbData[i];
+							var item = document.createElement('li');
+							item.textContent = new Date(etaCtb['eta']).toLocaleString();
+							etaCtbTimes.appendChild(item);
+						}
+					};
+					request.onerror = function (e) {
+
+					};
+					request.open("GET", 'https://rt.data.gov.hk/v1/transport/citybus-nwfb/eta/' + etaCtbCompany.value + '/' + stop['stop'] + '/' + etaCtbRouteData[etaCtbRoute.value].route);
+					request.responseType = "json";
+					request.send();
+					var mapLink = document.createElement('a');
+					var lat = stop['lat'];
+					var lng = stop['long'];
+					mapLink.href = 'https://www.openstreetmap.org/?mlat=' + lat + '&mlon=' + lng + '#map=17/' + lat + '/' + lng;
+					mapLink.target = '_blank';
+					mapLink.textContent = '地圖/Map'
+					etaCtbMap.innerHTML = '';
+					etaCtbMap.appendChild(mapLink);
+					return false;
+				};
+			})();
+		</script>
+
+		<div id='etaNlb'>
+			<select id='etaNlbRoute'>
+				<option value=''>巴士線/Bus route</option>
+			</select><br>
+			<select id='etaNlbStop'>
+				<option value=''>巴士站/Bus stop</option>
+			</select><span id='etaNlbMap'></span>
+			<ol id='etaNlbTimes'>
+			</ol>
+			<span id=etaNlbMsg></span>
+		</div>
+		<script>
+			(function () {
+				var etaNlbRoute = document.getElementById('etaNlbRoute');
+				var etaNlbStop = document.getElementById('etaNlbStop');
+				var etaNlbMap = document.getElementById('etaNlbMap');
+				var etaNlbTimes = document.getElementById('etaNlbTimes');
+				var etaNlbMsg = document.getElementById('etaNlbMsg');
+				var etaNlbRouteData = [];
+				var etaNlbStopData = [];
+				var request = new XMLHttpRequest();
+				etaNlbRoute.innerHTML = '<option value=\'\'>請稍候/Loading</option>';
+				request.onload = function (e) {
+					etaNlbRouteData = request.response.routes;
+					etaNlbRoute.innerHTML = '<option value=\'\'>巴士線/Bus route</option>';
+					for (var i in etaNlbRouteData) {
+						var route = etaNlbRouteData[i];
+						var item = document.createElement('option');
+						item.value = i;
+						item.textContent = route['routeNo'] + ': ' + route['routeName_c'] + ' / ' + route['routeName_e'];
+						etaNlbRoute.appendChild(item);
+					}
+				};
+				request.onerror = function (e) {
+
+				};
+				request.open("POST", 'https://rt.data.gov.hk/v1/transport/nlb/route.php?action=list');
+				request.responseType = "json";
+				request.send();
+				etaNlbRoute.onchange = function () {
+					var route = etaNlbRouteData[etaNlbRoute.value].routeNo;
+					var request = new XMLHttpRequest();
+					etaNlbStop.innerHTML = '<option value=\'\'>請稍候/Loading</option>';
+					request.onload = function (e) {
+						etaNlbStopData = request.response.stops;
+						etaNlbStop.innerHTML = '<option value=\'\'>巴士站/Bus stop</option>';
+						for (var i in etaNlbStopData) {
+							(function () {
+								var stop = etaNlbStopData[i];
+								var item = document.createElement('option');
+								item.value = i;
+								item.textContent = stop['stopName_c'] + '/' + stop['stopName_e'] + ' $' + stop['fare'] + '/ $' + stop['fareHoliday'];
+								etaNlbStop.appendChild(item);
+							})();
+						}
+					};
+					request.onerror = function (e) {
+
+					};
+					request.open("POST", 'https://rt.data.gov.hk/v1/transport/nlb/stop.php?action=list');
+					request.responseType = "json";
+					request.send('{"routeId":"' + etaNlbRouteData[etaNlbRoute.value].routeId + '"}');
+					return false;
+				};
+				etaNlbStop.onchange = function () {
+					var request = new XMLHttpRequest();
+					var stop = etaNlbStopData[etaNlbStop.value];
+					etaNlbTimes.innerHTML = '';
+					request.onload = function (e) {
+						etaNlbMsg.textContent = request.response.message;
+						var etaNlbData = request.response.estimatedArrivals;
+						etaNlbTimes.innerHTML = '';
+						for (var i in etaNlbData) {
+							var etaNlb = etaNlbData[i];
+							var item = document.createElement('li');
+							item.textContent = etaNlb['estimatedArrivalTime'] +
+									(etaNlb['departed'] == 1 ? ' 在途中 ' : '') +
+									(etaNlb['wheelChair'] == 1 ? ' 輪椅友好' : '');
+							etaNlbTimes.appendChild(item);
+						}
+					};
+					request.onerror = function (e) {
+
+					};
+					request.open("POST", 'https://rt.data.gov.hk/v1/transport/nlb/stop.php?action=estimatedArrivals');
+					request.responseType = "json";
+					request.send('{"routeId":"' + etaNlbRouteData[etaNlbRoute.value].routeId + '","stopId":"' + etaNlbStopData[etaNlbStop.value].stopId + '","language":"zh"}');
+					var mapLink = document.createElement('a');
+					var lat = stop['latitude'];
+					var lng = stop['longitude'];
+					mapLink.href = 'https://www.openstreetmap.org/?mlat=' + lat + '&mlon=' + lng + '#map=17/' + lat + '/' + lng;
+					mapLink.target = '_blank';
+					mapLink.textContent = '地圖/Map'
+					etaNlbMap.innerHTML = '';
+					etaNlbMap.appendChild(mapLink);
+					return false;
+				};
+			})();
+		</script>
+
+		<div id='etaMtr'>
+			<select id='etaMtrRoute'>
+				<option value=''>港鐵綫/MTR route</option>
+				<option value='WRL'>西鐵綫/West rail</option>
+				<option value='TKL'>將軍澳綫/Tseung Kwan O line</option>
+				<option value='TCL'>东涌綫/Tung Chung line</option>
+				<option value='AEL'>機場快綫/Airport express</option>
+			</select><br>
+			<select id='etaMtrStop'>
+				<option value=''>港鐵站/MTR stop</option>
+			</select>
+			<ol id='etaMtrUp'>
+			</ol>
+			<ol id='etaMtrDown'>
+			</ol>
+		</div>
+		<script>
+			(function () {
+				var etaMtrRoute = document.getElementById('etaMtrRoute');
+				var etaMtrStop = document.getElementById('etaMtrStop');
+				var etaMtrUp = document.getElementById('etaMtrUp');
+				var etaMtrDown = document.getElementById('etaMtrDown');
+				var etaMtrStopData = new Object();
+				etaMtrStopData.WRL = ['HUH', 'ETS', 'AUS', 'NAC', 'MEF', 'TWW', 'KSR', 'YUL', 'LOP', 'TIS', 'SIH', 'TUM'];
+				etaMtrStopData.TKL = ['NOP', 'QUB', 'YAT', 'TIK', 'TKO', 'LHP', 'HAH', 'POA'];
+				etaMtrStopData.TCL = ['HOK', 'KOW', 'OLY', 'NAC', 'LAK', 'TSY', 'SUN', 'TUC'];
+				etaMtrStopData.AEL = ['HOK', 'KOW', 'TSY', 'AIR', 'AWE'];
+				var etaMtrName = new Object();
+				etaMtrName.HOK = '香港/Hong Kong';
+				etaMtrName.KOW = '九龍/Kowloon';
+				etaMtrName.OLY = '奧運/Olympic';
+				etaMtrName.NAC = '南昌/Nam Cheong';
+				etaMtrName.LAK = '荔景/Lai King';
+				etaMtrName.TSY = '青衣/Tsing Yi';
+				etaMtrName.SUN = '欣澳/Sunny Bay';
+				etaMtrName.TUC = '東涌/Tung Chung';
+				etaMtrName.AIR = '機場/Airport';
+				etaMtrName.AWE = '博覽館/Asia World Expo';
+				etaMtrName.HUH = '紅磡/Hung Hom';
+				etaMtrName.ETS = '尖東/East Tsim Sha Tsui';
+				etaMtrName.AUS = '柯士甸/Austin';
+				etaMtrName.MEF = '美孚/Mei Foo';
+				etaMtrName.TWW = '荃灣西/Tsuen Wan West';
+				etaMtrName.KSR = '錦上路/Kam Sheung Road';
+				etaMtrName.YUL = '元朗/Yuen Long';
+				etaMtrName.LOP = '朗屏/Long Ping';
+				etaMtrName.TIS = '天水圍/Tin Shui Wai';
+				etaMtrName.SIH = '兆康/Siu Hong';
+				etaMtrName.TUM = '屯門/Tuen Mun';
+				etaMtrName.NOP = '北角/North point';
+				etaMtrName.QUB = '鰂魚涌/Quarry Bay';
+				etaMtrName.YAT = '油塘/Yau Tong';
+				etaMtrName.TIK = '調景嶺/Tiu Keng Leng';
+				etaMtrName.TKO = '將軍澳/Tseung Kwan O';
+				etaMtrName.LHP = '康城/LOHAS Park';
+				etaMtrName.HAH = '坑口/Hang Hau';
+				etaMtrName.POA = '寶琳/Po Lam';
+				etaMtrRoute.onchange = function () {
+					etaMtrStop.innerHTML = '<option value=\'\'>港鐵站/MTR stop</option>';
+					var stops = etaMtrStopData[etaMtrRoute.value];
+					for (var i in stops) {
+						var item = document.createElement('option');
+						item.value = stops[i];
+						item.textContent = etaMtrName[stops[i]];
+						etaMtrStop.appendChild(item);
+					}
+				};
+				etaMtrStop.onchange = function () {
+					var request = new XMLHttpRequest();
+					var route = etaMtrRoute.value;
+					var stop = etaMtrStop.value;
+					etaMtrUp.innerHTML = '';
+					etaMtrDown.innerHTML = '';
+					var showTime = function (dir, widget) {
+						var etaMtrData = request.response.data[route + '-' + stop][dir];
+						widget.innerHTML = '';
+						for (var i in etaMtrData) {
+							var etaMtr = etaMtrData[i];
+							var item = document.createElement('li');
+							item.textContent = etaMtr['time'] + ' 月台' + etaMtr['plat'] + ' 往 ' + etaMtrName[etaMtr['dest']];
+							widget.appendChild(item);
+						}
+					};
+					request.onload = function (e) {
+						showTime('UP', etaMtrUp);
+						showTime('DOWN', etaMtrDown);
+					};
+					request.onerror = function (e) {
+						etaMtrUp.innerHTML = '<li>没有資料/No data</li>';
+					};
+					request.open("GET", 'https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=' + route + '&sta=' + stop + '&lang=TC');
+					request.responseType = "json";
+					request.send();
+					return false;
+				};
+			})();
+		</script>
+
+	</body>
+</html>
